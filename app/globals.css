@@ -354,8 +354,10 @@ img { display: block; max-width: 100%; }
   .shop-page { padding-top: 42px; }
   .shop-intro { margin-bottom: 32px; }
   .catalog-toolbar h2 { font-size: 24px; }
-  .catalog-actions input, .catalog-actions select { min-width: 0; flex: 1; }
-  .catalog-actions .button { flex: 0 0 auto; }
+  .catalog-actions { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; }
+  .catalog-actions input { grid-column: 1 / -1; width: 100%; }
+  .catalog-actions select { min-width: 0; width: 100%; }
+  .catalog-actions .button { width: auto; }
   .product-grid { grid-template-columns: 1fr; gap: 13px; }
   .product-image-wrap { height: 250px; }
   .auth-layout, .onboarding-layout { width: min(100% - 32px, 520px); min-height: 0; padding: 39px 0 48px; grid-template-columns: 1fr; gap: 25px; }
@@ -394,6 +396,12 @@ img { display: block; max-width: 100%; }
   .inventory-row { grid-template-columns: 1fr; }
   .inventory-adjust { grid-column: auto; flex-wrap: wrap; }
   .inventory-adjust input { flex: 1; width: auto; }
+}
+@media (max-width: 360px) {
+  .hero-copy h1 { font-size: 36px; }
+  .hero-lede { font-size: 12px; }
+  .hero-paths { padding: 13px; }
+  .path-card { padding-left: 52px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
