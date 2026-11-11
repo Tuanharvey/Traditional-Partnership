@@ -51,14 +51,6 @@ function saveToDisk() {
   localStorage.setItem('craft_jobs', JSON.stringify(appData.jobs));
 }
 
-// Lưu API Key tự động khi người dùng nhập
-function handleApiKeyChange() {
-  const keyInput = document.getElementById('custom-api-key');
-  if (keyInput) {
-    appData.apiKey = keyInput.value.trim();
-  }
-}
-
 let resolvedGeminiModel = null;
 
 async function getAvailableModel(apiKey) {
@@ -95,8 +87,7 @@ async function getAvailableModel(apiKey) {
 }
 
 async function callGeminiAPI(parts, systemInstruction = "") {
-  const apiKey = (document.getElementById('custom-api-key') ? document.getElementById('custom-api-key').value.trim() : '')
-                 || appData.apiKey;
+  const apiKey = appData.apiKey;
 
   if (!apiKey) {
     throw new Error("NO_API_KEY");
@@ -275,9 +266,9 @@ function renderDashboard() {
 
   const badge = document.getElementById('tax-status-badge');
   if (summary.totalYear <= 500000000) {
-    badge.innerHTML = `<span style="color: var(--success); font-weight:700;">Doanh thu ≤ 500tr: Miễn thuế GTGT & TNCN</span>`;
+    badge.innerHTML = `<span style="color: var(--success); font-weight:700;">Doanh thu năm ≤ 500 triệu đồng: thuộc diện miễn thuế GTGT và TNCN.</span>`;
   } else {
-    badge.innerHTML = `<span style="color: var(--danger); font-weight:700;">Vượt 500tr: Trừ 500tr tính thuế TNCN (NĐ 68)</span>`;
+    badge.innerHTML = `<span style="color: var(--danger); font-weight:700;">Doanh thu năm vượt 500 triệu đồng: cần theo dõi nghĩa vụ thuế.</span>`;
   }
 
   calculateTaxObligations();
@@ -962,16 +953,9 @@ async function runSimulatedOCR() {
   } catch (err) {
     console.warn("Lỗi gọi Gemini Vision OCR:", err.message);
     if (err.message === "NO_API_KEY") {
-      resultBox.innerHTML = `
-        <div style="background: #fff3e0; border: 1px solid #ffe0b2; padding: 12px; border-radius: 6px; color: #b78103;">
-          <strong>Chưa điền Gemini API Key:</strong> Vui lòng dán khóa API của bạn vào ô trên khung Trợ Lý AI. Đang hiển thị kết quả quét mô phỏng:<br>
-          • Bên bán: <strong>Xưởng Cung Ứng Men Màu & Đất Sét Tràng An</strong><br>
-          • Số tiền: <strong>2.850.000 VNĐ</strong><br>
-          <button class="btn btn-primary" style="margin-top: 8px; font-size: 11px;" onclick="applyScannedToForm(2850000, 'Xưởng Đất Sét Tràng An', 'Mua 2 tấn đất sét dẻo nung')">Điền Nhanh Vào Phiếu Chi</button>
-        </div>
-      `;
+      resultBox.innerHTML = '<span style="color: var(--text-muted);">Tính năng quét hóa đơn chưa được cấu hình.</span>';
     } else {
-      resultBox.innerHTML = `<span style="color: var(--danger);">Lỗi xử lý hình ảnh: ${err.message}</span>`;
+      resultBox.innerHTML = '<span style="color: var(--danger);">Không thể phân tích ảnh. Vui lòng thử lại sau.</span>';
     }
   }
 }
@@ -1034,17 +1018,9 @@ async function sendChatMessage() {
     if (curLoading) curLoading.remove();
 
     if (err.message === "NO_API_KEY") {
-      let fallbackText = "Bạn chưa nhập Gemini API Key ở ô phía trên! Hãy vào Google AI Studio (aistudio.google.com) tạo mã API miễn phí và dán vào ô trên để kích hoạt AI trực tiếp.\n\n[Phản hồi nội bộ]: ";
-      if (text.includes("thuế") || text.includes("500 triệu")) {
-        fallbackText += "Theo Nghị định 68/2026/NĐ-CP, nếu doanh thu năm dưới 500 triệu thì xưởng được miễn hoàn toàn thuế GTGT và TNCN. Nếu trên 500 triệu, bạn sẽ được trừ 500 triệu trước khi tính thuế TNCN 1.5% đối với nghề làm hàng thủ công.";
-      } else if (text.includes("gốm") || text.includes("nứt") || text.includes("hao hụt")) {
-        fallbackText += "Trong phần 'Định Giá AI', bạn hãy điền tỷ lệ hao hụt lò nung (ví dụ 10% hoặc 15%). Hệ thống sẽ tự động cộng chi phí của những chiếc bình hỏng vào giá thành của những chiếc bình đạt chuẩn để xưởng không bị lỗ.";
-      } else {
-        fallbackText += "Dữ liệu thu chi của bạn đã được ghi nhận an toàn vào bộ nhớ máy tính. Bạn có thể in phiếu thu chi bất kỳ lúc nào để kẹp hồ sơ pháp lý.";
-      }
-      renderAiReply(fallbackText);
+      renderAiReply("Trợ lý AI chưa được cấu hình. Vui lòng thử lại sau.");
     } else {
-      renderAiReply(`Lỗi kết nối AI: ${err.message}. Vui lòng kiểm tra lại API Key hoặc kết nối mạng.`);
+      renderAiReply("Không thể kết nối trợ lý AI. Vui lòng thử lại sau.");
     }
   }
 }
@@ -1059,10 +1035,4 @@ function renderAiReply(replyText) {
 }
 
 // --- KHỞI ĐỘNG HỆ THỐNG ---
-window.addEventListener('DOMContentLoaded', () => {
-  const keyInput = document.getElementById('custom-api-key');
-  if (keyInput && appData.apiKey) {
-    keyInput.value = appData.apiKey;
-  }
-  renderDashboard();
-});
+window.addEventListener('DOMContentLoaded', renderDashboard);

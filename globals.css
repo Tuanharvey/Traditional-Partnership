@@ -514,11 +514,6 @@ tbody tr:hover {
   color: var(--text-secondary);
 }
 
-#custom-api-key {
-  border-color: var(--border) !important;
-  font-weight: 500;
-}
-
 @media (max-width: 1080px) {
   .dashboard-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

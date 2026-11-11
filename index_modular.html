@@ -72,7 +72,7 @@
       <div class="main-panels">
         <div class="panel-box">
           <h2>
-            <span>Công Cụ Khấu Trừ Thuế (NĐ 68/2026/NĐ-CP)</span>
+            <span>Tổng hợp nghĩa vụ thuế</span>
             <div>
               <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="exportTaxLedger()">In Sổ Doanh Thu (S1/S2a)</button>
               <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; margin-left: 4px;" onclick="exportExpenseLedger()">In Sổ Chi Phí (S3/S2c)</button>
@@ -134,8 +134,8 @@
               <div class="form-group">
                 <label>Kênh thanh toán:</label>
                 <select id="trans-channel">
-                  <option value="cash">Tiền mặt tại xưởng (Sổ S6)</option>
-                  <option value="bank">Tài khoản Ngân hàng (Sổ S7)</option>
+                  <option value="cash">Tiền mặt tại xưởng</option>
+                  <option value="bank">Chuyển khoản ngân hàng</option>
                 </select>
               </div>
             </div>
@@ -362,7 +362,6 @@
         <div class="panel-box">
           <h2>
             <span>Trợ Lý Tài Chính & Sổ Sách Làng Nghề</span>
-            <input type="password" id="custom-api-key" value="" placeholder="Nhập khóa API để dùng AI" oninput="handleApiKeyChange()" style="width: 200px; font-size: 11px; padding: 5px 8px; border: 1px solid var(--clay-primary); border-radius: 4px;">
           </h2>
           <div class="chat-window" id="chat-messages">
             <div class="chat-bubble assistant">
