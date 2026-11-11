@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sổ Nghề — Quản trị xưởng thủ công</title>
+  <meta name="description" content="Không gian quản trị tài chính, kho vật tư và hoạt động cho xưởng thủ công truyền thống Việt Nam.">
+  <meta name="theme-color" content="#f5f3ed">
+  <!-- LIÊN KẾT FILE CSS RIÊNG BIỆT -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="globals.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-container">
+      <div class="brand-title">
+        <span class="brand-mark" aria-hidden="true">SN</span>
+        <div class="brand-copy">
+          <span class="brand-kicker">LÀNG NGHỀ VIỆT NAM</span>
+          <h1>Sổ Nghề</h1>
+        </div>
+      </div>
+      <div class="workspace-status"><span class="status-dot" aria-hidden="true"></span> Không gian xưởng của bạn</div>
+      <nav class="nav-tabs" aria-label="Điều hướng chính">
+        <button class="nav-btn active" data-tab="dashboard" aria-current="page" onclick="switchTab('dashboard')">Tổng quan</button>
+        <button class="nav-btn" data-tab="transactions" onclick="switchTab('transactions')">Thu chi &amp; chứng từ</button>
+        <button class="nav-btn" data-tab="inventory" onclick="switchTab('inventory')">Kho vật tư</button>
+        <button class="nav-btn" data-tab="pricing" onclick="switchTab('pricing')">Định giá sản phẩm</button>
+        <button class="nav-btn" data-tab="ai-assistant" onclick="switchTab('ai-assistant')">Trợ lý &amp; quét hóa đơn</button>
+        <button class="nav-btn" data-tab="connector" onclick="switchTab('connector')">Kết nối thợ</button>
+        <button class="nav-btn" data-tab="public-showcase" onclick="switchTab('public-showcase')">Gian trưng bày</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- PHÂN HỆ 1: DASHBOARD & THUẾ NGHỊ ĐỊNH 68/2026/NĐ-CP -->
+    <section id="tab-dashboard" class="tab-content active">
+      <div class="page-intro">
+        <div>
+          <p class="page-eyebrow">BẢNG ĐIỀU KHIỂN · THÁNG 11, 2026</p>
+          <h2>Tổng quan xưởng</h2>
+          <p class="page-description">Tất cả sổ sách và hoạt động của xưởng, gọn gàng trong một nơi.</p>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="switchTab('transactions')"><span aria-hidden="true">+</span> Ghi giao dịch</button>
+      </div>
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <h3>Doanh Thu Năm Nay</h3>
+          <div class="value" id="card-revenue-year">0 VNĐ</div>
+          <div class="subtext" id="tax-status-badge">Đang cập nhật...</div>
+        </div>
+        <div class="stat-card">
+          <h3>Doanh Thu Quý Này</h3>
+          <div class="value" id="card-revenue-quarter">0 VNĐ</div>
+          <div class="subtext">Cộng dồn tự động 3 tháng</div>
+        </div>
+        <div class="stat-card">
+          <h3>Sổ Quỹ Tiền Mặt (Mẫu S6/S2e)</h3>
+          <div class="value" id="card-cash-balance">0 VNĐ</div>
+          <div class="subtext">Tiền mặt tại xưởng</div>
+        </div>
+        <div class="stat-card">
+          <h3>Tiền Gửi Ngân Hàng (Mẫu S7/S2e)</h3>
+          <div class="value" id="card-bank-balance">0 VNĐ</div>
+          <div class="subtext">Tài khoản thanh toán số dư</div>
+        </div>
+      </div>
+
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>
+            <span>Công Cụ Khấu Trừ Thuế (NĐ 68/2026/NĐ-CP)</span>
+            <div>
+              <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="exportTaxLedger()">In Sổ Doanh Thu (S1/S2a)</button>
+              <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; margin-left: 4px;" onclick="exportExpenseLedger()">In Sổ Chi Phí (S3/S2c)</button>
+            </div>
+          </h2>
+          <div class="form-group">
+            <label>Xem nghĩa vụ thuế theo kỳ:</label>
+            <select id="select-tax-period" onchange="calculateTaxObligations()">
+              <option value="quarter">Quý hiện tại</option>
+              <option value="year">Cả năm dương lịch</option>
+              <option value="month">Tháng hiện tại</option>
+            </select>
+          </div>
+          <div id="tax-computation-details" style="font-size: 13px; line-height: 1.8; background: var(--kraft-bg); padding: 14px; border-radius: 8px;">
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Doanh Thu Gần Đây Theo Ngày</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Sổ chi tiết doanh thu</span>
+          </h2>
+          <div class="data-table-container">
+            <table id="table-recent-revenues">
+              <thead>
+                <tr>
+                  <th>Ngày</th>
+                  <th>Số hiệu</th>
+                  <th>Nội dung</th>
+                  <th class="text-right">Số tiền (VNĐ)</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 2: QUẢN LÝ THU/CHI & IN CHỨNG TỪ THÔNG TƯ 88 -->
+    <section id="tab-transactions" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Ghi Nhận Giao Dịch Vào Sổ Kế Toán</h2>
+          <form id="form-transaction" onsubmit="handleSaveTransaction(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Loại nghiệp vụ:</label>
+                <select id="trans-type">
+                  <option value="revenue_craft">Thu: Bán sản phẩm tự chế tác (Thuế 3%)</option>
+                  <option value="revenue_retail">Thu: Bán lẻ / Thương mại (Thuế 1%)</option>
+                  <option value="expense_material">Chi: Mua nguyên vật liệu (Đất sét, men, sợi...)</option>
+                  <option value="expense_labor">Chi: Trả tiền công thợ thủ công</option>
+                  <option value="expense_fuel">Chi: Lò nung, than củi, điện sản xuất</option>
+                  <option value="expense_packaging">Chi: Bao bì, hộp quà, vận chuyển</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Kênh thanh toán:</label>
+                <select id="trans-channel">
+                  <option value="cash">Tiền mặt tại xưởng (Sổ S6)</option>
+                  <option value="bank">Tài khoản Ngân hàng (Sổ S7)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ngày phát sinh:</label>
+                <input type="date" id="trans-date" required>
+              </div>
+              <div class="form-group">
+                <label>Số tiền (VNĐ):</label>
+                <input type="number" id="trans-amount" placeholder="VD: 1500000" min="1000" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Họ tên người nộp / nhận tiền:</label>
+              <input type="text" id="trans-person" placeholder="VD: Nguyễn Văn A (Khách mua) hoặc Nhà xe giao men" required>
+            </div>
+
+            <div class="form-group">
+              <label>Lý do nộp / chi tiền:</label>
+              <input type="text" id="trans-reason" placeholder="VD: Bán 02 lọ hoa gốm men rạn Bát Tràng" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Lưu Vào Sổ & Tự Động Sinh Mã Phiếu</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Chứng Từ Đã Lập (Mẫu 01-TT & 02-TT)</span>
+            <span style="font-size: 11px; color: var(--clay-primary);">Khổ In A5 Chuẩn Bộ Tài Chính</span>
+          </h2>
+          <div class="data-table-container">
+            <table id="table-vouchers">
+              <thead>
+                <tr>
+                  <th>Số Phiếu</th>
+                  <th>Ngày</th>
+                  <th>Đối tác</th>
+                  <th class="text-right">Số tiền</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 3: KHO VẬT TƯ & THÀNH PHẨM (MẪU S2-HKD / S2d-HKD) -->
+    <section id="tab-inventory" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Quản Lý Nhập / Xuất Vật Tư & Sản Phẩm</h2>
+          <form id="form-inventory" onsubmit="handleSaveInventory(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Loại nghiệp vụ kho:</label>
+                <select id="inv-action">
+                  <option value="in">Nhập kho (Phiếu 03-VT)</option>
+                  <option value="out">Xuất kho chế tác / Bán (Phiếu 04-VT)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Phân loại mặt hàng:</label>
+                <select id="inv-type">
+                  <option value="material">Nguyên vật liệu thô (Đất sét, men, sợi, củi)</option>
+                  <option value="finished">Thành phẩm hoàn thiện (Bình gốm, lụa, giỏ tre)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tên vật tư / Sản phẩm:</label>
+                <input type="text" id="inv-name" placeholder="VD: Đất sét dẻo trắng hoặc Bình gốm sen" required>
+              </div>
+              <div class="form-group">
+                <label>Đơn vị tính:</label>
+                <input type="text" id="inv-unit" placeholder="Tấn, bao, chiếc, bộ, mét" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Số lượng:</label>
+                <input type="number" id="inv-qty" step="0.1" min="0.1" required>
+              </div>
+              <div class="form-group">
+                <label>Đơn giá nhập/xuất (VNĐ):</label>
+                <input type="number" id="inv-price" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Đối tác giao / nhận vật tư:</label>
+              <input type="text" id="inv-partner" placeholder="Tên thợ xưởng hoặc nhà cung cấp" required>
+            </div>
+
+            <button type="submit" class="btn btn-indigo btn-block">Cập Nhật Kho & In Phiếu Kho (03-VT / 04-VT)</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Bảng Theo Dõi Nhập - Xuất - Tồn (S2d-HKD)</span>
+            <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="exportInventoryLedger()">In Sổ Kho (S2/S2d)</button>
+          </h2>
+          <div class="data-table-container">
+            <table id="table-inventory">
+              <thead>
+                <tr>
+                  <th>Tên vật tư/Hàng</th>
+                  <th>ĐVT</th>
+                  <th class="text-right">Tổng Nhập</th>
+                  <th class="text-right">Tổng Xuất</th>
+                  <th class="text-right">Tồn Kho</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 4: ĐỊNH GIÁ AI, CHI PHÍ TẠO TÁC & HAO HỤT LÒ NUNG -->
+    <section id="tab-pricing" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Công Thức Tính Giá Vốn Hàng Bán (COGS)</h2>
+          <form id="form-pricing" onsubmit="calculateArtisanPricing(event)">
+            <div class="form-group">
+              <label>Tên tác phẩm thủ công:</label>
+              <input type="text" id="craft-name" placeholder="VD: Bình gốm vuốt tay men lam hoa sen" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tiền vật liệu (Đất sét, men, sợi):</label>
+                <input type="number" id="cost-material" placeholder="VNĐ" required>
+              </div>
+              <div class="form-group">
+                <label>Tiền điện nung lò / Củi đun phân bổ:</label>
+                <input type="number" id="cost-kiln" placeholder="VNĐ" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Số giờ công người thợ vuốt/dệt (Giờ):</label>
+                <input type="number" id="craft-hours" step="0.5" placeholder="VD: 5.5" required>
+              </div>
+              <div class="form-group">
+                <label>Tiền công thợ thủ công (VNĐ/giờ):</label>
+                <input type="number" id="craft-rate" placeholder="VD: 50000" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Bao bì hộp quà & Vận chuyển:</label>
+                <input type="number" id="cost-box" placeholder="VNĐ" required>
+              </div>
+              <div class="form-group">
+                <label>Hao hụt phế phẩm nung lò (%):</label>
+                <input type="number" id="defect-rate" value="10" min="0" max="50">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Cấp bậc nghệ nhân & Mùa vụ tiêu dùng:</label>
+              <select id="artisan-reputation">
+                <option value="standard">Thợ lành nghề - Mùa thường nhật</option>
+                <option value="artisan">Nghệ nhân ưu tú / Lâu năm (+30% giá trị độc bản)</option>
+                <option value="peak_season">Mùa quà tặng lễ hội & Tết (+15% sức cầu)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-indigo btn-block">Tính Giá Vốn & Đề Xuất 3 Mức Giá Bán</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>Kết Quả Định Giá Đa Yếu Tố</h2>
+          <div id="pricing-results" style="display: none;">
+            <div style="background: var(--kraft-bg); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+              <p>Giá vốn thực tế (đã bù hao hụt lò nung): <strong id="res-cogs" class="font-bold">0 VNĐ</strong></p>
+              <p>Điểm hòa vốn đơn vị: <span id="res-breakeven">0 VNĐ</span></p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+              <div style="border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 11px; color: var(--text-muted);">Giá Sàn An Toàn</div>
+                <div id="res-price-floor" style="font-weight: 800; color: var(--indigo-accent); font-size: 15px;">0</div>
+              </div>
+              <div style="border: 2px solid var(--clay-primary); background: #fffaf7; padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 11px; color: var(--clay-primary); font-weight: 700;">Giá Đề Xuất Bán Lẻ</div>
+                <div id="res-price-target" style="font-weight: 800; color: var(--clay-primary); font-size: 16px;">0</div>
+              </div>
+              <div style="border: 1px solid var(--gold-highlight); padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 11px; color: var(--gold-highlight);">Giá Triển Lãm Cao Cấp</div>
+                <div id="res-price-premium" style="font-weight: 800; color: var(--gold-highlight); font-size: 15px;">0</div>
+              </div>
+            </div>
+
+            <div style="font-size: 12px; background: #fff; border-left: 3px solid var(--clay-primary); padding: 10px;" id="res-reason"></div>
+            <button class="btn btn-primary btn-block" style="margin-top: 14px;" onclick="syncToPublicShowcase()">Đồng Bộ Xuất Bản Lên Web Triển Lãm Khách Hàng</button>
+          </div>
+          <div id="pricing-placeholder" style="text-align: center; color: var(--text-muted); padding: 50px 0;">
+            Vui lòng nhập số liệu vật tư và giờ công thợ bên trái để tính toán.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 5: TRỢ LÝ AI & CAMERA / OCR QUÉT HÓA ĐƠN -->
+    <section id="tab-ai-assistant" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>
+            <span>Trợ Lý Tài Chính & Sổ Sách Làng Nghề</span>
+            <input type="password" id="custom-api-key" value="" placeholder="Nhập khóa API để dùng AI" oninput="handleApiKeyChange()" style="width: 200px; font-size: 11px; padding: 5px 8px; border: 1px solid var(--clay-primary); border-radius: 4px;">
+          </h2>
+          <div class="chat-window" id="chat-messages">
+            <div class="chat-bubble assistant">
+              Xin chào! Tôi là trợ lý tài chính được cập nhật theo Thông tư 152/2025/TT-BTC và Nghị định 68/2026/NĐ-CP. Bạn có thể hỏi tôi về cách khấu trừ thuế 500 triệu, cách tính tỷ lệ hao hụt đồ gốm, hoặc giải thích dòng tiền của xưởng.
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="chat-input" placeholder="Hỏi AI về thuế, chi phí nung lò hoặc hòa vốn..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+            <button class="btn btn-primary" onclick="sendChatMessage()">Gửi</button>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <h2>Quét Hóa Đơn & Nhận Diện Ảnh Bằng Camera</h2>
+          <div class="camera-box">
+            <video id="webcam-video" autoplay playsinline></video>
+            <canvas id="photo-canvas"></canvas>
+            <img id="preview-img" alt="Ảnh chụp hóa đơn">
+            <div id="camera-controls">
+              <button class="btn btn-secondary" onclick="startCamera()">Mở Camera</button>
+              <button class="btn btn-indigo" id="btn-snap" style="display: none;" onclick="capturePhoto()">Chụp Ảnh</button>
+              <label class="btn btn-secondary" style="margin-left: 6px;">
+                Chọn Ảnh Từ Máy
+                <input type="file" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" onclick="runSimulatedOCR()">AI Tự Động Bóc Tách Số Tiền & Tên Đơn Vị</button>
+          <div id="ocr-result-box" style="margin-top: 12px; font-size: 12px; display: none;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 6: CẦU NỐI THỢ, FREELANCER & LAO ĐỘNG (CONNECTOR MODULE) -->
+    <section id="tab-connector" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Đăng Tin Tuyển Dụng Thợ Phụ & Freelancer</h2>
+          <form id="form-job-post" onsubmit="handlePostJob(event)">
+            <div class="form-group">
+              <label>Vị trí cần tìm:</label>
+              <input type="text" id="job-title" placeholder="VD: Thợ phụ nhào đất sét hoặc Freelancer thiết kế bao bì" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phân loại nhân lực:</label>
+                <select id="job-category">
+                  <option value="craft_labor">Thợ thủ công / Lao động lành nghề</option>
+                  <option value="freelancer_media">Freelancer Thiết kế, Ảnh, Marketing</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Mức thù lao dự kiến:</label>
+                <input type="text" id="job-wage" placeholder="VD: 300.000đ/ngày hoặc Theo sản phẩm" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Mô tả chi tiết công việc:</label>
+              <textarea id="job-desc" rows="3" placeholder="Yêu cầu công việc, địa điểm làm việc..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Đăng Tin Lên Bảng Kết Nối Làng Nghề</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Bảng Tin Việc Làm & Kết Nối Chuyên Môn</span>
+            <span style="font-size: 11px; color: var(--text-muted);">Hỗ trợ tiểu thương giải quyết nhân lực</span>
+          </h2>
+          <div id="job-board-container" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 7: PUBLIC SHOWCASE (WEB KHÁCH HÀNG) -->
+    <section id="tab-public-showcase" class="tab-content">
+      <div class="panel-box" style="margin-bottom: 20px;">
+        <h2>Không Gian Triển Lãm & Đặt Hàng Trực Tuyến Từ Khách Hàng</h2>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Đây là giao diện khách hàng nhìn thấy khi ghé thăm. Tác phẩm được đồng bộ thời gian thực từ Cổng Quản Lý Nghệ Nhân.
+        </p>
+      </div>
+      <div id="public-product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
+    </section>
+  </main>
+
+  <!-- MODAL CHỈNH SỬA GIAO DỊCH (DYNAMIC IN-PLACE EDIT) -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="color: var(--clay-dark); font-size: 16px;">Chỉnh Sửa Giao Dịch & Sổ Sách</h3>
+        <button class="btn btn-secondary" onclick="closeEditModal()" style="padding: 4px 8px;">✕ Đóng</button>
+      </div>
+      <form id="form-edit-transaction" onsubmit="handleUpdateTransaction(event)">
+        <input type="hidden" id="edit-id">
+        <div class="form-group">
+          <label>Mã chứng từ:</label>
+          <input type="text" id="edit-code" readonly style="background: var(--kraft-bg); font-weight: bold;">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Loại nghiệp vụ:</label>
+            <select id="edit-type">
+              <option value="revenue_craft">Thu: Bán SP thủ công (Thuế 3%)</option>
+              <option value="revenue_retail">Thu: Bán lẻ / Thương mại (Thuế 1%)</option>
+              <option value="expense_material">Chi: Mua NVL (Đất, men, sợi...)</option>
+              <option value="expense_labor">Chi: Trả tiền công thợ</option>
+              <option value="expense_fuel">Chi: Lò nung, than củi, điện</option>
+              <option value="expense_packaging">Chi: Bao bì, vận chuyển</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kênh thanh toán:</label>
+            <select id="edit-channel">
+              <option value="cash">Tiền mặt tại xưởng (Sổ S6)</option>
+              <option value="bank">Ngân hàng chuyển khoản (Sổ S7)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ngày phát sinh:</label>
+            <input type="date" id="edit-date" required>
+          </div>
+          <div class="form-group">
+            <label>Số tiền (VNĐ):</label>
+            <input type="number" id="edit-amount" min="1000" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Người giao dịch:</label>
+          <input type="text" id="edit-person" required>
+        </div>
+        <div class="form-group">
+          <label>Nội dung diễn giải:</label>
+          <input type="text" id="edit-reason" required>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 16px;">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Lưu Thay Đổi & Cập Nhật Tức Thì</button>
+          <button type="button" class="btn btn-secondary" onclick="handleDeleteTransaction()" style="color: var(--danger); border-color: var(--danger);">Xóa Bỏ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL IN CHỨNG TỪ & SỔ KẾ TOÁN (PRINT PREVIEW) -->
+  <div class="modal-overlay" id="print-modal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 16px;" class="no-print">
+        <button class="btn btn-secondary" onclick="closePrintModal()">Đóng Cửa Sổ</button>
+        <button class="btn btn-primary" onclick="window.print()">Bấm Lệnh In Ra Máy In / Xuất PDF</button>
+      </div>
+      <div id="print-area"></div>
+    </div>
+  </div>
+
+  <!-- LIÊN KẾT CÁC FILE JAVASCRIPT RIÊNG BIỆT -->
+  <!-- NẠP BIẾN MÔI TRƯỜNG CONFIG.JS (TƯƠNG ĐƯƠNG .ENV) -->
+  <script src="config.js"></script>
+  <script src="templates.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
