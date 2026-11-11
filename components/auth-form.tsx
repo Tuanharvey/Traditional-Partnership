@@ -33,7 +33,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         return
       }
 
-      router.push('/seller/dashboard')
+      router.replace('/seller/dashboard')
       router.refresh()
     } catch {
       setError('Đã xảy ra lỗi. Vui lòng thử lại sau.')

@@ -6,7 +6,7 @@ type OnboardingFormProps = {
 
 export function OnboardingForm({ issue }: OnboardingFormProps) {
   return (
-    <main className="onboarding-layout">
+    <section className="onboarding-layout" aria-label="Thiết lập gian hàng">
       <section className="onboarding-intro">
         <p className="eyebrow">BƯỚC 01 · THIẾT LẬP GIAN HÀNG</p>
         <h1>Hãy bắt đầu bằng câu chuyện của xưởng.</h1>
@@ -31,6 +31,6 @@ export function OnboardingForm({ issue }: OnboardingFormProps) {
           <button className="button button-primary button-full" type="submit">Lưu thông tin và xem hướng dẫn</button>
         </form>
       </section>
-    </main>
+    </section>
   )
 }
