@@ -26,5 +26,5 @@ export default async function SellerOnboardingPage({ searchParams }: OnboardingP
   if (profile) redirect('/seller/dashboard')
 
   const params = await searchParams
-  return <OnboardingForm issue={params.issue} />
+  return <main className="seller-page"><OnboardingForm issue={params.issue} /></main>
 }

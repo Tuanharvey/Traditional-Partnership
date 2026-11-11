@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { OnboardingForm } from '@/components/onboarding-form'
 import { SellerWorkspace } from '@/components/seller-workspace'
 import { getSellerDashboardData } from '@/lib/data'
 import { requireUserId } from '@/lib/session'
@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export default async function SellerDashboardPage() {
   const userId = await requireUserId()
   const data = await getSellerDashboardData(userId)
-  if (!data) redirect('/seller/onboarding')
+  if (!data) return <main className="seller-page"><OnboardingForm /></main>
 
   return (
     <main className="seller-page">
