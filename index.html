@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sổ Nghề — Quản trị xưởng thủ công</title>
+  <meta name="description" content="Không gian quản trị tài chính, kho vật tư và hoạt động cho xưởng thủ công truyền thống Việt Nam.">
+  <meta name="theme-color" content="#f5f3ed">
+  <!-- LIÊN KẾT FILE CSS RIÊNG BIỆT -->
+  <style>
+/* ==========================================================================
+   TINH HOA DI SẢN - VIETNAMESE TRADITIONAL CRAFT MANAGEMENT SYSTEM
+   Design System: Organic Artisanal Heritage (Đất Nung, Chàm Thổ Cẩm & Giấy Dó)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+  /* Core Heritage Palette */
+  --clay-primary: #9E472A;       /* Đất nung Bát Tràng trứ danh */
+  --clay-hover: #82361E;
+  --clay-soft: rgba(158, 71, 42, 0.08);
+  --clay-glow: rgba(158, 71, 42, 0.18);
+
+  --indigo-deep: #1E303B;        /* Xanh chàm nhuộm sợi Sa Pa */
+  --indigo-accent: #2C4251;
+  --indigo-soft: rgba(44, 66, 81, 0.08);
+
+  --paper-kraft: #F7F4EE;        /* Sắc giấy Dó mộc mạc cổ truyền */
+  --paper-card: #FFFFFF;
+  --paper-card-subtle: #FAF8F5;
+
+  --gold-lacquer: #C5A059;      /* Vàng son thếp vàng làng nghề */
+  --gold-dark: #9E7B3B;
+
+  --text-main: #232220;
+  --text-secondary: #5C5852;
+  --text-muted: #8A857D;
+
+  --border-delicate: #E6DFD5;
+  --border-focus: #C8B9A6;
+
+  --success: #2A7246;
+  --success-bg: #EAF5EE;
+  --danger: #B42318;
+  --danger-bg: #FEF3F2;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-subtle: 0 1px 3px rgba(35, 34, 32, 0.04), 0 1px 2px rgba(35, 34, 32, 0.02);
+  --shadow-card: 0 4px 16px -2px rgba(44, 66, 81, 0.06), 0 2px 6px -1px rgba(44, 66, 81, 0.03);
+  --shadow-elevated: 0 12px 32px -4px rgba(44, 66, 81, 0.12), 0 4px 12px -2px rgba(44, 66, 81, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--paper-kraft);
+  background-image: radial-gradient(rgba(197, 160, 89, 0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 80px;
+}
+
+/* --- HEADER & BRANDING --- */
+header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-delicate);
+  padding: 14px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(44, 66, 81, 0.03);
+}
+
+.header-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, var(--clay-primary), var(--clay-hover));
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(158, 71, 42, 0.25);
+}
+
+.brand-title h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  color: var(--indigo-deep);
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 5px;
+  background: var(--paper-card-subtle);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-delicate);
+  overflow-x: auto;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  color: var(--clay-primary);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.nav-btn.active {
+  background: #FFFFFF;
+  color: var(--clay-primary);
+  box-shadow: 0 2px 8px rgba(35, 34, 32, 0.06);
+  font-weight: 700;
+}
+
+/* --- MAIN CONTAINER --- */
+main {
+  max-width: 1360px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- DASHBOARD STATS GRID --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: var(--paper-card);
+  padding: 22px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-delicate);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--clay-primary);
+  opacity: 0.8;
+}
+
+.stat-card:nth-child(2)::before { background: var(--indigo-accent); }
+.stat-card:nth-child(3)::before { background: var(--gold-lacquer); }
+.stat-card:nth-child(4)::before { background: var(--success); }
+
+.stat-card h3 {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.stat-card .value {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--indigo-deep);
+  letter-spacing: -0.5px;
+}
+
+.stat-card .subtext {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* --- PANELS & SECTION BOXES --- */
+.main-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .main-panels { grid-template-columns: 1fr; }
+}
+
+.panel-box {
+  background: var(--paper-card);
+  padding: 26px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-delicate);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+}
+
+.panel-box h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--indigo-deep);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border-delicate);
+}
+
+/* --- FORMS & TYPOGRAPHY --- */
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-delicate);
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  background: var(--paper-card);
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--clay-primary);
+  box-shadow: 0 0 0 3px var(--clay-glow);
+  background: #FFF;
+}
+
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* --- BUTTONS & ACTIONS --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--clay-primary);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(158, 71, 42, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--clay-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(158, 71, 42, 0.35);
+}
+
+.btn-secondary {
+  background: var(--paper-card-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--border-delicate);
+}
+
+.btn-secondary:hover {
+  background: #EBE5DB;
+  color: var(--indigo-deep);
+}
+
+.btn-indigo {
+  background: var(--indigo-accent);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(44, 66, 81, 0.25);
+}
+
+.btn-indigo:hover {
+  background: var(--indigo-deep);
+  transform: translateY(-1px);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* --- CAMERA & OCR SCANNER --- */
+.camera-box {
+  border: 2px dashed var(--border-focus);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: center;
+  background: var(--paper-card-subtle);
+  margin-bottom: 18px;
+  transition: border-color 0.2s;
+}
+
+.camera-box:hover {
+  border-color: var(--clay-primary);
+}
+
+.camera-box video, .camera-box canvas, .camera-box img {
+  max-width: 100%;
+  max-height: 240px;
+  border-radius: var(--radius-md);
+  display: none;
+  margin: 0 auto 14px;
+  box-shadow: var(--shadow-card);
+}
+
+/* --- DATA TABLES --- */
+.data-table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border-delicate);
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+th, td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-delicate);
+  text-align: left;
+}
+
+th {
+  background: var(--paper-card-subtle);
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: rgba(158, 71, 42, 0.02);
+}
+
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+.font-bold { font-weight: 700; }
+
+/* --- AI COPILOT CHAT --- */
+.chat-window {
+  height: 330px;
+  overflow-y: auto;
+  border: 1px solid var(--border-delicate);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--paper-card-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.chat-bubble {
+  max-width: 82%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  box-shadow: var(--shadow-subtle);
+}
+
+.chat-bubble.assistant {
+  background: #FFFFFF;
+  border: 1px solid var(--border-delicate);
+  border-bottom-left-radius: 2px;
+  align-self: flex-start;
+  color: var(--text-main);
+}
+
+.chat-bubble.user {
+  background: var(--clay-primary);
+  border-bottom-right-radius: 2px;
+  color: #FFFFFF;
+  align-self: flex-end;
+}
+
+/* --- MODAL DIALOGS --- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 48, 59, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: var(--shadow-elevated);
+  border: 1px solid var(--border-delicate);
+}
+
+/* --- STATUTORY PRINT VOUCHERS (@MEDIA PRINT) --- */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-area, #print-area * {
+    visibility: visible;
+  }
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 8mm 12mm;
+    background: #FFFFFF !important;
+  }
+
+  .print-voucher, .print-ledger {
+    border: none !important;
+    color: #000000 !important;
+    background: #FFFFFF !important;
+    font-family: 'Times New Roman', Times, serif !important;
+  }
+
+  .voucher-header, .ledger-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  .voucher-title, .ledger-title {
+    text-align: center;
+    font-size: 17pt;
+    font-weight: 800;
+    margin: 10px 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .voucher-date, .ledger-subtitle {
+    text-align: center;
+    font-style: italic;
+    font-size: 10.5pt;
+    margin-bottom: 20px;
+  }
+
+  .voucher-body p {
+    font-size: 11.5pt;
+    line-height: 1.9;
+  }
+
+  .voucher-signatures, .ledger-signatures {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 28px;
+    page-break-inside: avoid;
+  }
+
+  .sig-box {
+    text-align: center;
+    width: 24%;
+    font-size: 10.5pt;
+  }
+
+  .sig-space {
+    height: 70px;
+  }
+
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+  }
+
+  .report-table th, .report-table td {
+    border: 1px solid #000000 !important;
+    padding: 7px 10px;
+    font-size: 10pt;
+    color: #000000 !important;
+  }
+}
+
+</style>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="globals.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-container">
+      <div class="brand-title">
+        <span class="brand-mark" aria-hidden="true">SN</span>
+        <div class="brand-copy">
+          <span class="brand-kicker">LÀNG NGHỀ VIỆT NAM</span>
+          <h1>Sổ Nghề</h1>
+        </div>
+      </div>
+      <div class="workspace-status"><span class="status-dot" aria-hidden="true"></span> Không gian xưởng của bạn</div>
+      <nav class="nav-tabs" aria-label="Điều hướng chính">
+        <button class="nav-btn active" data-tab="dashboard" aria-current="page" onclick="switchTab('dashboard')">Tổng quan</button>
+        <button class="nav-btn" data-tab="transactions" onclick="switchTab('transactions')">Thu chi &amp; chứng từ</button>
+        <button class="nav-btn" data-tab="inventory" onclick="switchTab('inventory')">Kho vật tư</button>
+        <button class="nav-btn" data-tab="pricing" onclick="switchTab('pricing')">Định giá sản phẩm</button>
+        <button class="nav-btn" data-tab="ai-assistant" onclick="switchTab('ai-assistant')">Trợ lý &amp; quét hóa đơn</button>
+        <button class="nav-btn" data-tab="connector" onclick="switchTab('connector')">Kết nối thợ</button>
+        <button class="nav-btn" data-tab="public-showcase" onclick="switchTab('public-showcase')">Gian trưng bày</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- PHÂN HỆ 1: DASHBOARD & THUẾ NGHỊ ĐỊNH 68/2026/NĐ-CP -->
+    <section id="tab-dashboard" class="tab-content active">
+      <div class="page-intro">
+        <div>
+          <p class="page-eyebrow">BẢNG ĐIỀU KHIỂN · THÁNG 11, 2026</p>
+          <h2>Tổng quan xưởng</h2>
+          <p class="page-description">Tất cả sổ sách và hoạt động của xưởng, gọn gàng trong một nơi.</p>
+        </div>
+        <button class="btn btn-primary" type="button" onclick="switchTab('transactions')"><span aria-hidden="true">+</span> Ghi giao dịch</button>
+      </div>
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <h3>Doanh Thu Năm Nay</h3>
+          <div class="value" id="card-revenue-year">0 VNĐ</div>
+          <div class="subtext" id="tax-status-badge">Đang cập nhật...</div>
+        </div>
+        <div class="stat-card">
+          <h3>Doanh Thu Quý Này</h3>
+          <div class="value" id="card-revenue-quarter">0 VNĐ</div>
+          <div class="subtext">Cộng dồn tự động 3 tháng</div>
+        </div>
+        <div class="stat-card">
+          <h3>Sổ Quỹ Tiền Mặt (Mẫu S6/S2e)</h3>
+          <div class="value" id="card-cash-balance">0 VNĐ</div>
+          <div class="subtext">Tiền mặt tại xưởng</div>
+        </div>
+        <div class="stat-card">
+          <h3>Tiền Gửi Ngân Hàng (Mẫu S7/S2e)</h3>
+          <div class="value" id="card-bank-balance">0 VNĐ</div>
+          <div class="subtext">Tài khoản thanh toán số dư</div>
+        </div>
+      </div>
+
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>
+            <span>Tổng hợp nghĩa vụ thuế</span>
+            <div>
+              <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="exportTaxLedger()">In Sổ Doanh Thu (S1/S2a)</button>
+              <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; margin-left: 4px;" onclick="exportExpenseLedger()">In Sổ Chi Phí (S3/S2c)</button>
+            </div>
+          </h2>
+          <div class="form-group">
+            <label>Xem nghĩa vụ thuế theo kỳ:</label>
+            <select id="select-tax-period" onchange="calculateTaxObligations()">
+              <option value="quarter">Quý hiện tại</option>
+              <option value="year">Cả năm dương lịch</option>
+              <option value="month">Tháng hiện tại</option>
+            </select>
+          </div>
+          <div id="tax-computation-details" style="font-size: 13px; line-height: 1.8; background: var(--kraft-bg); padding: 14px; border-radius: 8px;">
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Doanh Thu Gần Đây Theo Ngày</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Sổ chi tiết doanh thu</span>
+          </h2>
+          <div class="data-table-container">
+            <table id="table-recent-revenues">
+              <thead>
+                <tr>
+                  <th>Ngày</th>
+                  <th>Số hiệu</th>
+                  <th>Nội dung</th>
+                  <th class="text-right">Số tiền (VNĐ)</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 2: QUẢN LÝ THU/CHI & IN CHỨNG TỪ THÔNG TƯ 88 -->
+    <section id="tab-transactions" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Ghi Nhận Giao Dịch Vào Sổ Kế Toán</h2>
+          <form id="form-transaction" onsubmit="handleSaveTransaction(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Loại nghiệp vụ:</label>
+                <select id="trans-type">
+                  <option value="revenue_craft">Thu: Bán sản phẩm tự chế tác (Thuế 3%)</option>
+                  <option value="revenue_retail">Thu: Bán lẻ / Thương mại (Thuế 1%)</option>
+                  <option value="expense_material">Chi: Mua nguyên vật liệu (Đất sét, men, sợi...)</option>
+                  <option value="expense_labor">Chi: Trả tiền công thợ thủ công</option>
+                  <option value="expense_fuel">Chi: Lò nung, than củi, điện sản xuất</option>
+                  <option value="expense_packaging">Chi: Bao bì, hộp quà, vận chuyển</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Kênh thanh toán:</label>
+                <select id="trans-channel">
+                  <option value="cash">Tiền mặt tại xưởng</option>
+                  <option value="bank">Chuyển khoản ngân hàng</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ngày phát sinh:</label>
+                <input type="date" id="trans-date" required>
+              </div>
+              <div class="form-group">
+                <label>Số tiền (VNĐ):</label>
+                <input type="number" id="trans-amount" placeholder="VD: 1500000" min="1000" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Họ tên người nộp / nhận tiền:</label>
+              <input type="text" id="trans-person" placeholder="VD: Nguyễn Văn A (Khách mua) hoặc Nhà xe giao men" required>
+            </div>
+
+            <div class="form-group">
+              <label>Lý do nộp / chi tiền:</label>
+              <input type="text" id="trans-reason" placeholder="VD: Bán 02 lọ hoa gốm men rạn Bát Tràng" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Lưu Vào Sổ & Tự Động Sinh Mã Phiếu</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Chứng Từ Đã Lập (Mẫu 01-TT & 02-TT)</span>
+            <span style="font-size: 11px; color: var(--clay-primary);">Khổ In A5 Chuẩn Bộ Tài Chính</span>
+          </h2>
+          <div class="data-table-container">
+            <table id="table-vouchers">
+              <thead>
+                <tr>
+                  <th>Số Phiếu</th>
+                  <th>Ngày</th>
+                  <th>Đối tác</th>
+                  <th class="text-right">Số tiền</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 3: KHO VẬT TƯ & THÀNH PHẨM (MẪU S2-HKD / S2d-HKD) -->
+    <section id="tab-inventory" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Quản Lý Nhập / Xuất Vật Tư & Sản Phẩm</h2>
+          <form id="form-inventory" onsubmit="handleSaveInventory(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Loại nghiệp vụ kho:</label>
+                <select id="inv-action">
+                  <option value="in">Nhập kho (Phiếu 03-VT)</option>
+                  <option value="out">Xuất kho chế tác / Bán (Phiếu 04-VT)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Phân loại mặt hàng:</label>
+                <select id="inv-type">
+                  <option value="material">Nguyên vật liệu thô (Đất sét, men, sợi, củi)</option>
+                  <option value="finished">Thành phẩm hoàn thiện (Bình gốm, lụa, giỏ tre)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tên vật tư / Sản phẩm:</label>
+                <input type="text" id="inv-name" placeholder="VD: Đất sét dẻo trắng hoặc Bình gốm sen" required>
+              </div>
+              <div class="form-group">
+                <label>Đơn vị tính:</label>
+                <input type="text" id="inv-unit" placeholder="Tấn, bao, chiếc, bộ, mét" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Số lượng:</label>
+                <input type="number" id="inv-qty" step="0.1" min="0.1" required>
+              </div>
+              <div class="form-group">
+                <label>Đơn giá nhập/xuất (VNĐ):</label>
+                <input type="number" id="inv-price" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Đối tác giao / nhận vật tư:</label>
+              <input type="text" id="inv-partner" placeholder="Tên thợ xưởng hoặc nhà cung cấp" required>
+            </div>
+
+            <button type="submit" class="btn btn-indigo btn-block">Cập Nhật Kho & In Phiếu Kho (03-VT / 04-VT)</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Bảng Theo Dõi Nhập - Xuất - Tồn (S2d-HKD)</span>
+            <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="exportInventoryLedger()">In Sổ Kho (S2/S2d)</button>
+          </h2>
+          <div class="data-table-container">
+            <table id="table-inventory">
+              <thead>
+                <tr>
+                  <th>Tên vật tư/Hàng</th>
+                  <th>ĐVT</th>
+                  <th class="text-right">Tổng Nhập</th>
+                  <th class="text-right">Tổng Xuất</th>
+                  <th class="text-right">Tồn Kho</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 4: ĐỊNH GIÁ AI, CHI PHÍ TẠO TÁC & HAO HỤT LÒ NUNG -->
+    <section id="tab-pricing" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Công Thức Tính Giá Vốn Hàng Bán (COGS)</h2>
+          <form id="form-pricing" onsubmit="calculateArtisanPricing(event)">
+            <div class="form-group">
+              <label>Tên tác phẩm thủ công:</label>
+              <input type="text" id="craft-name" placeholder="VD: Bình gốm vuốt tay men lam hoa sen" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tiền vật liệu (Đất sét, men, sợi):</label>
+                <input type="number" id="cost-material" placeholder="VNĐ" required>
+              </div>
+              <div class="form-group">
+                <label>Tiền điện nung lò / Củi đun phân bổ:</label>
+                <input type="number" id="cost-kiln" placeholder="VNĐ" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Số giờ công người thợ vuốt/dệt (Giờ):</label>
+                <input type="number" id="craft-hours" step="0.5" placeholder="VD: 5.5" required>
+              </div>
+              <div class="form-group">
+                <label>Tiền công thợ thủ công (VNĐ/giờ):</label>
+                <input type="number" id="craft-rate" placeholder="VD: 50000" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Bao bì hộp quà & Vận chuyển:</label>
+                <input type="number" id="cost-box" placeholder="VNĐ" required>
+              </div>
+              <div class="form-group">
+                <label>Hao hụt phế phẩm nung lò (%):</label>
+                <input type="number" id="defect-rate" value="10" min="0" max="50">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Cấp bậc nghệ nhân & Mùa vụ tiêu dùng:</label>
+              <select id="artisan-reputation">
+                <option value="standard">Thợ lành nghề - Mùa thường nhật</option>
+                <option value="artisan">Nghệ nhân ưu tú / Lâu năm (+30% giá trị độc bản)</option>
+                <option value="peak_season">Mùa quà tặng lễ hội & Tết (+15% sức cầu)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-indigo btn-block">Tính Giá Vốn & Đề Xuất 3 Mức Giá Bán</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>Kết Quả Định Giá Đa Yếu Tố</h2>
+          <div id="pricing-results" style="display: none;">
+            <div style="background: var(--kraft-bg); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+              <p>Giá vốn thực tế (đã bù hao hụt lò nung): <strong id="res-cogs" class="font-bold">0 VNĐ</strong></p>
+              <p>Điểm hòa vốn đơn vị: <span id="res-breakeven">0 VNĐ</span></p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+              <div style="border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 11px; color: var(--text-muted);">Giá Sàn An Toàn</div>
+                <div id="res-price-floor" style="font-weight: 800; color: var(--indigo-accent); font-size: 15px;">0</div>
+              </div>
+              <div style="border: 2px solid var(--clay-primary); background: #fffaf7; padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 11px; color: var(--clay-primary); font-weight: 700;">Giá Đề Xuất Bán Lẻ</div>
+                <div id="res-price-target" style="font-weight: 800; color: var(--clay-primary); font-size: 16px;">0</div>
+              </div>
+              <div style="border: 1px solid var(--gold-highlight); padding: 10px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 11px; color: var(--gold-highlight);">Giá Triển Lãm Cao Cấp</div>
+                <div id="res-price-premium" style="font-weight: 800; color: var(--gold-highlight); font-size: 15px;">0</div>
+              </div>
+            </div>
+
+            <div style="font-size: 12px; background: #fff; border-left: 3px solid var(--clay-primary); padding: 10px;" id="res-reason"></div>
+            <button class="btn btn-primary btn-block" style="margin-top: 14px;" onclick="syncToPublicShowcase()">Đồng Bộ Xuất Bản Lên Web Triển Lãm Khách Hàng</button>
+          </div>
+          <div id="pricing-placeholder" style="text-align: center; color: var(--text-muted); padding: 50px 0;">
+            Vui lòng nhập số liệu vật tư và giờ công thợ bên trái để tính toán.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 5: TRỢ LÝ AI & CAMERA / OCR QUÉT HÓA ĐƠN -->
+    <section id="tab-ai-assistant" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>
+            <span>Trợ Lý Tài Chính & Sổ Sách Làng Nghề</span>
+          </h2>
+          <div class="chat-window" id="chat-messages">
+            <div class="chat-bubble assistant">
+              Xin chào! Tôi là trợ lý tài chính được cập nhật theo Thông tư 152/2025/TT-BTC và Nghị định 68/2026/NĐ-CP. Bạn có thể hỏi tôi về cách khấu trừ thuế 500 triệu, cách tính tỷ lệ hao hụt đồ gốm, hoặc giải thích dòng tiền của xưởng.
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="chat-input" placeholder="Hỏi AI về thuế, chi phí nung lò hoặc hòa vốn..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+            <button class="btn btn-primary" onclick="sendChatMessage()">Gửi</button>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <h2>Quét Hóa Đơn & Nhận Diện Ảnh Bằng Camera</h2>
+          <div class="camera-box">
+            <video id="webcam-video" autoplay playsinline></video>
+            <canvas id="photo-canvas"></canvas>
+            <img id="preview-img" alt="Ảnh chụp hóa đơn">
+            <div id="camera-controls">
+              <button class="btn btn-secondary" onclick="startCamera()">Mở Camera</button>
+              <button class="btn btn-indigo" id="btn-snap" style="display: none;" onclick="capturePhoto()">Chụp Ảnh</button>
+              <label class="btn btn-secondary" style="margin-left: 6px;">
+                Chọn Ảnh Từ Máy
+                <input type="file" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" onclick="runSimulatedOCR()">AI Tự Động Bóc Tách Số Tiền & Tên Đơn Vị</button>
+          <div id="ocr-result-box" style="margin-top: 12px; font-size: 12px; display: none;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 6: CẦU NỐI THỢ, FREELANCER & LAO ĐỘNG (CONNECTOR MODULE) -->
+    <section id="tab-connector" class="tab-content">
+      <div class="main-panels">
+        <div class="panel-box">
+          <h2>Đăng Tin Tuyển Dụng Thợ Phụ & Freelancer</h2>
+          <form id="form-job-post" onsubmit="handlePostJob(event)">
+            <div class="form-group">
+              <label>Vị trí cần tìm:</label>
+              <input type="text" id="job-title" placeholder="VD: Thợ phụ nhào đất sét hoặc Freelancer thiết kế bao bì" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phân loại nhân lực:</label>
+                <select id="job-category">
+                  <option value="craft_labor">Thợ thủ công / Lao động lành nghề</option>
+                  <option value="freelancer_media">Freelancer Thiết kế, Ảnh, Marketing</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Mức thù lao dự kiến:</label>
+                <input type="text" id="job-wage" placeholder="VD: 300.000đ/ngày hoặc Theo sản phẩm" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Mô tả chi tiết công việc:</label>
+              <textarea id="job-desc" rows="3" placeholder="Yêu cầu công việc, địa điểm làm việc..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Đăng Tin Lên Bảng Kết Nối Làng Nghề</button>
+          </form>
+        </div>
+
+        <div class="panel-box">
+          <h2>
+            <span>Bảng Tin Việc Làm & Kết Nối Chuyên Môn</span>
+            <span style="font-size: 11px; color: var(--text-muted);">Hỗ trợ tiểu thương giải quyết nhân lực</span>
+          </h2>
+          <div id="job-board-container" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHÂN HỆ 7: PUBLIC SHOWCASE (WEB KHÁCH HÀNG) -->
+    <section id="tab-public-showcase" class="tab-content">
+      <div class="panel-box" style="margin-bottom: 20px;">
+        <h2>Không Gian Triển Lãm & Đặt Hàng Trực Tuyến Từ Khách Hàng</h2>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Đây là giao diện khách hàng nhìn thấy khi ghé thăm. Tác phẩm được đồng bộ thời gian thực từ Cổng Quản Lý Nghệ Nhân.
+        </p>
+      </div>
+      <div id="public-product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
+    </section>
+  </main>
+
+  <!-- MODAL CHỈNH SỬA GIAO DỊCH (DYNAMIC IN-PLACE EDIT) -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="color: var(--clay-dark); font-size: 16px;">Chỉnh Sửa Giao Dịch & Sổ Sách</h3>
+        <button class="btn btn-secondary" onclick="closeEditModal()" style="padding: 4px 8px;">✕ Đóng</button>
+      </div>
+      <form id="form-edit-transaction" onsubmit="handleUpdateTransaction(event)">
+        <input type="hidden" id="edit-id">
+        <div class="form-group">
+          <label>Mã chứng từ:</label>
+          <input type="text" id="edit-code" readonly style="background: var(--kraft-bg); font-weight: bold;">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Loại nghiệp vụ:</label>
+            <select id="edit-type">
+              <option value="revenue_craft">Thu: Bán SP thủ công (Thuế 3%)</option>
+              <option value="revenue_retail">Thu: Bán lẻ / Thương mại (Thuế 1%)</option>
+              <option value="expense_material">Chi: Mua NVL (Đất, men, sợi...)</option>
+              <option value="expense_labor">Chi: Trả tiền công thợ</option>
+              <option value="expense_fuel">Chi: Lò nung, than củi, điện</option>
+              <option value="expense_packaging">Chi: Bao bì, vận chuyển</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kênh thanh toán:</label>
+            <select id="edit-channel">
+              <option value="cash">Tiền mặt tại xưởng (Sổ S6)</option>
+              <option value="bank">Ngân hàng chuyển khoản (Sổ S7)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ngày phát sinh:</label>
+            <input type="date" id="edit-date" required>
+          </div>
+          <div class="form-group">
+            <label>Số tiền (VNĐ):</label>
+            <input type="number" id="edit-amount" min="1000" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Người giao dịch:</label>
+          <input type="text" id="edit-person" required>
+        </div>
+        <div class="form-group">
+          <label>Nội dung diễn giải:</label>
+          <input type="text" id="edit-reason" required>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 16px;">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Lưu Thay Đổi & Cập Nhật Tức Thì</button>
+          <button type="button" class="btn btn-secondary" onclick="handleDeleteTransaction()" style="color: var(--danger); border-color: var(--danger);">Xóa Bỏ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL IN CHỨNG TỪ & SỔ KẾ TOÁN (PRINT PREVIEW) -->
+  <div class="modal-overlay" id="print-modal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 16px;" class="no-print">
+        <button class="btn btn-secondary" onclick="closePrintModal()">Đóng Cửa Sổ</button>
+        <button class="btn btn-primary" onclick="window.print()">Bấm Lệnh In Ra Máy In / Xuất PDF</button>
+      </div>
+      <div id="print-area"></div>
+    </div>
+  </div>
+
+  <!-- LIÊN KẾT CÁC FILE JAVASCRIPT RIÊNG BIỆT -->
+  <script>
+/**
+ * CẤU HÌNH BIẾN MÔI TRƯỜNG DỰ ÁN (TƯƠNG ĐƯƠNG .ENV)
+ * Lưu trữ API Key riêng biệt để bảo mật và dễ thay đổi
+ */
+const ENV_CONFIG = {
+  GEMINI_API_KEY: ""
+};
+
+
+/**
+ * BỘ KHUÔN MẪU KẾ TOÁN CHUẨN THÔNG TƯ 88/2021/TT-BTC & THÔNG TƯ 152/2025/TT-BTC
+ */
+const AccountingTemplates = {
+  // 1. Phiếu Thu (Mẫu số 01-TT) - Khổ A5
+  receiptVoucher: (data) => `
+    <div class="print-voucher">
+      <div class="voucher-header">
+        <div>
+          <strong>${data.businessName}</strong><br>
+          Địa chỉ: ${data.businessAddress}<br>
+          Mã số thuế: ${data.taxId}
+        </div>
+        <div style="text-align: right;">
+          <strong>Mẫu số 01 - TT</strong><br>
+          <span>(Ban hành kèm theo TT số 88/2021/TT-BTC)</span><br>
+          <span>Số: <strong>${data.code}</strong></span><br>
+          <span>Quyển số: 01</span>
+        </div>
+      </div>
+      <h2 class="voucher-title">PHIẾU THU</h2>
+      <div class="voucher-date">Ngày ${data.day} tháng ${data.month} năm ${data.year}</div>
+      <div class="voucher-body">
+        <p>Họ và tên người nộp tiền: <strong>${data.personName}</strong></p>
+        <p>Địa chỉ: <strong>${data.address || 'Khách đặt mua sản phẩm thủ công'}</strong></p>
+        <p>Lý do nộp: <strong>${data.reason}</strong></p>
+        <p>Số tiền: <strong>${Number(data.amount).toLocaleString('vi-VN')} VNĐ</strong></p>
+        <p>Bằng chữ: <em>${data.amountWords}</em></p>
+        <p>Kèm theo: <strong>${data.attachment || '01'}</strong> chứng từ gốc</p>
+      </div>
+      <div class="voucher-signatures">
+        <div class="sig-box">
+          <strong>Người lập biểu</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.creatorName || 'Người lập'}</p>
+        </div>
+        <div class="sig-box">
+          <strong>Người nộp tiền</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.personName}</p>
+        </div>
+        <div class="sig-box">
+          <strong>Thủ quỹ</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.treasurerName || 'Thủ quỹ'}</p>
+        </div>
+        <div class="sig-box">
+          <strong>Đại diện Hộ KD</strong><br><span>(Ký, họ tên, đóng dấu)</span>
+          <div class="sig-space"></div>
+          <p>${data.artisanName || 'Chủ cơ sở'}</p>
+        </div>
+      </div>
+      <div style="margin-top: 15px; font-size: 10pt; font-style: italic;">
+        Đã nhận đủ số tiền (viết bằng chữ): ${data.amountWords}
+      </div>
+    </div>
+  `,
+
+  // 2. Phiếu Chi (Mẫu số 02-TT) - Khổ A5
+  paymentVoucher: (data) => `
+    <div class="print-voucher">
+      <div class="voucher-header">
+        <div>
+          <strong>${data.businessName}</strong><br>
+          Địa chỉ: ${data.businessAddress}<br>
+          Mã số thuế: ${data.taxId}
+        </div>
+        <div style="text-align: right;">
+          <strong>Mẫu số 02 - TT</strong><br>
+          <span>(Ban hành kèm theo TT số 88/2021/TT-BTC)</span><br>
+          <span>Số: <strong>${data.code}</strong></span><br>
+          <span>Quyển số: 01</span>
+        </div>
+      </div>
+      <h2 class="voucher-title">PHIẾU CHI</h2>
+      <div class="voucher-date">Ngày ${data.day} tháng ${data.month} năm ${data.year}</div>
+      <div class="voucher-body">
+        <p>Họ và tên người nhận tiền: <strong>${data.personName}</strong></p>
+        <p>Địa chỉ: <strong>${data.address || 'Đơn vị cung cấp nguyên vật liệu'}</strong></p>
+        <p>Lý do chi: <strong>${data.reason}</strong></p>
+        <p>Số tiền: <strong>${Number(data.amount).toLocaleString('vi-VN')} VNĐ</strong></p>
+        <p>Bằng chữ: <em>${data.amountWords}</em></p>
+        <p>Kèm theo: <strong>${data.attachment || '01'}</strong> chứng từ gốc</p>
+      </div>
+      <div class="voucher-signatures">
+        <div class="sig-box">
+          <strong>Người lập biểu</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.creatorName || 'Người lập'}</p>
+        </div>
+        <div class="sig-box">
+          <strong>Người nhận tiền</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.personName}</p>
+        </div>
+        <div class="sig-box">
+          <strong>Thủ quỹ</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.treasurerName || 'Thủ quỹ'}</p>
+        </div>
+        <div class="sig-box">
+          <strong>Đại diện Hộ KD</strong><br><span>(Ký, họ tên, đóng dấu)</span>
+          <div class="sig-space"></div>
+          <p>${data.artisanName || 'Chủ cơ sở'}</p>
+        </div>
+      </div>
+      <div style="margin-top: 15px; font-size: 10pt; font-style: italic;">
+        Đã nhận đủ số tiền (viết bằng chữ): ${data.amountWords}
+      </div>
+    </div>
+  `,
+
+  // 3. Phiếu Nhập Kho (03-VT) & Xuất Kho (04-VT)
+  inventoryVoucher: (data) => `
+    <div class="print-voucher">
+      <div class="voucher-header">
+        <div>
+          <strong>${data.businessName}</strong><br>
+          Địa chỉ: ${data.businessAddress}<br>
+          Mã số thuế: ${data.taxId}
+        </div>
+        <div style="text-align: right;">
+          <strong>Mẫu số ${data.action === 'in' ? '03-VT (Nhập)' : '04-VT (Xuất)'}</strong><br>
+          <span>(TT 88/2021/TT-BTC)</span><br>
+          <span>Số: <strong>${data.code}</strong></span>
+        </div>
+      </div>
+      <h2 class="voucher-title">PHIẾU ${data.action === 'in' ? 'NHẬP KHO VẬT TƯ' : 'XUẤT KHO VẬT TƯ'}</h2>
+      <div class="voucher-date">Ngày ${data.day} tháng ${data.month} năm ${data.year}</div>
+      <div class="voucher-body">
+        <p>Họ tên người ${data.action === 'in' ? 'giao hàng' : 'nhận hàng'}: <strong>${data.partner}</strong></p>
+        <p>Địa điểm kho: <strong>Kho xưởng sản xuất trung tâm</strong></p>
+      </div>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Tên vật tư / Hàng hóa</th>
+            <th>ĐVT</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${data.itemName}</td>
+            <td>${data.unit}</td>
+            <td class="text-right">${data.qty}</td>
+            <td class="text-right">${Number(data.price).toLocaleString('vi-VN')}</td>
+            <td class="text-right font-bold">${Number(data.amount).toLocaleString('vi-VN')}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 10px;">Tổng tiền (viết bằng chữ): <em>${data.amountWords}</em></p>
+      <div class="voucher-signatures">
+        <div class="sig-box">
+          <strong>Người lập</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>Người lập</p>
+        </div>
+        <div class="sig-box">
+          <strong>Người ${data.action === 'in' ? 'giao' : 'nhận'}</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.partner}</p>
+        </div>
+        <div class="sig-box">
+          <strong>Thủ kho</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>Thủ kho</p>
+        </div>
+        <div class="sig-box">
+          <strong>Đại diện Hộ KD</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.artisanName}</p>
+        </div>
+      </div>
+    </div>
+  `,
+
+  // 4. Sổ chi tiết Doanh thu bán hàng hóa, dịch vụ (Mẫu S1-HKD & S2a-HKD)
+  revenueLedger: (data) => `
+    <div class="print-ledger">
+      <div class="ledger-header">
+        <div>
+          <strong>${data.businessName}</strong><br>
+          Địa chỉ: ${data.businessAddress}<br>
+          Mã số thuế: ${data.taxId}
+        </div>
+        <div style="text-align: right;">
+          <strong>Mẫu số S1-HKD / S2a-HKD</strong><br>
+          <span>(TT 88/2021/TT-BTC & TT 152/2025/TT-BTC)</span>
+        </div>
+      </div>
+      <h2 class="ledger-title">SỔ CHI TIẾT DOANH THU BÁN HÀNG HÓA, DỊCH VỤ</h2>
+      <div class="ledger-subtitle">Kỳ tính: <strong>${data.periodTitle}</strong> (Năm ${data.year})</div>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Ngày ghi</th>
+            <th colspan="2">Chứng từ</th>
+            <th rowspan="2">Nội dung nghiệp vụ</th>
+            <th rowspan="2">Sản xuất chế tác (3%)</th>
+            <th rowspan="2">Bán lẻ thành phẩm (1%)</th>
+            <th rowspan="2">Tổng doanh thu (VNĐ)</th>
+            <th rowspan="2">Kênh thanh toán</th>
+          </tr>
+          <tr>
+            <th>Số hiệu</th>
+            <th>Ngày</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.rows.map(r => `
+            <tr>
+              <td>${r.date}</td>
+              <td>${r.code}</td>
+              <td>${r.date}</td>
+              <td class="text-left">${r.desc}</td>
+              <td class="text-right">${r.isManufacture ? Number(r.amount).toLocaleString('vi-VN') : '-'}</td>
+              <td class="text-right">${!r.isManufacture ? Number(r.amount).toLocaleString('vi-VN') : '-'}</td>
+              <td class="text-right font-bold">${Number(r.amount).toLocaleString('vi-VN')}</td>
+              <td>${r.channel === 'bank' ? 'Ngân hàng' : 'Tiền mặt'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="font-bold">TỔNG CỘNG PHÁT SINH TRONG KỲ</td>
+            <td class="text-right font-bold">${Number(data.totalManufacture).toLocaleString('vi-VN')}</td>
+            <td class="text-right font-bold">${Number(data.totalRetail).toLocaleString('vi-VN')}</td>
+            <td class="text-right font-bold">${Number(data.grandTotal).toLocaleString('vi-VN')}</td>
+            <td>-</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div style="margin: 15px 0; font-size: 10pt; line-height: 1.6;">
+        <p>• Doanh thu lũy kế: <strong>${Number(data.grandTotal).toLocaleString('vi-VN')} VNĐ</strong></p>
+        <p>• Chính sách áp dụng: <em>${data.taxExplanation}</em></p>
+        <p>• Thuế GTGT tạm tính: <strong>${Number(data.vatAmount).toLocaleString('vi-VN')} VNĐ</strong> | Thuế TNCN tạm tính: <strong>${Number(data.pitAmount).toLocaleString('vi-VN')} VNĐ</strong></p>
+      </div>
+      <div class="ledger-signatures">
+        <div class="sig-box">
+          <strong>Người lập biểu</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>${data.creatorName || 'Người lập'}</p>
+        </div>
+        <div class="sig-box" style="margin-left: auto;">
+          <strong>Người đại diện Hộ kinh doanh</strong><br><span>(Ký, họ tên, đóng dấu)</span>
+          <div class="sig-space"></div>
+          <p>${data.artisanName || 'Chủ cơ sở'}</p>
+        </div>
+      </div>
+    </div>
+  `,
+
+  // 5. Sổ chi phí sản xuất, kinh doanh (Mẫu S3-HKD & S2c-HKD)
+  expenseLedger: (data) => `
+    <div class="print-ledger">
+      <div class="ledger-header">
+        <div>
+          <strong>${data.businessName}</strong><br>
+          Địa chỉ: ${data.businessAddress}<br>
+          Mã số thuế: ${data.taxId}
+        </div>
+        <div style="text-align: right;">
+          <strong>Mẫu số S3-HKD / S2c-HKD</strong><br>
+          <span>(TT 88/2021/TT-BTC & TT 152/2025/TT-BTC)</span>
+        </div>
+      </div>
+      <h2 class="ledger-title">SỔ CHI PHÍ SẢN XUẤT, KINH DOANH</h2>
+      <div class="ledger-subtitle">Năm: <strong>${data.year}</strong></div>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Ngày</th>
+            <th>Số hiệu</th>
+            <th>Diễn giải</th>
+            <th>Nguyên vật liệu</th>
+            <th>Nhân công</th>
+            <th>Lò nung / Điện</th>
+            <th>Bao bì / Khác</th>
+            <th>Tổng số tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.rows.map(r => `
+            <tr>
+              <td>${r.date}</td>
+              <td>${r.code}</td>
+              <td>${r.desc}</td>
+              <td class="text-right">${r.type === 'expense_material' ? Number(r.amount).toLocaleString('vi-VN') : '-'}</td>
+              <td class="text-right">${r.type === 'expense_labor' ? Number(r.amount).toLocaleString('vi-VN') : '-'}</td>
+              <td class="text-right">${r.type === 'expense_fuel' ? Number(r.amount).toLocaleString('vi-VN') : '-'}</td>
+              <td class="text-right">${r.type === 'expense_packaging' ? Number(r.amount).toLocaleString('vi-VN') : '-'}</td>
+              <td class="text-right font-bold">${Number(r.amount).toLocaleString('vi-VN')}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="font-bold">TỔNG CHI PHÍ TRONG KỲ</td>
+            <td colspan="4"></td>
+            <td class="text-right font-bold">${Number(data.totalExpense).toLocaleString('vi-VN')}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="ledger-signatures">
+        <div class="sig-box">
+          <strong>Người lập biểu</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>Người lập</p>
+        </div>
+        <div class="sig-box" style="margin-left: auto;">
+          <strong>Người đại diện Hộ kinh doanh</strong><br><span>(Ký, họ tên, đóng dấu)</span>
+          <div class="sig-space"></div>
+          <p>${data.artisanName}</p>
+        </div>
+      </div>
+    </div>
+  `,
+
+  // 6. Sổ chi tiết vật liệu, dụng cụ, sản phẩm, hàng hóa (Mẫu S2-HKD & S2d-HKD)
+  inventoryLedger: (data) => `
+    <div class="print-ledger">
+      <div class="ledger-header">
+        <div>
+          <strong>${data.businessName}</strong><br>
+          Địa chỉ: ${data.businessAddress}<br>
+          Mã số thuế: ${data.taxId}
+        </div>
+        <div style="text-align: right;">
+          <strong>Mẫu số S2-HKD / S2d-HKD</strong><br>
+          <span>(TT 88/2021/TT-BTC & TT 152/2025/TT-BTC)</span>
+        </div>
+      </div>
+      <h2 class="ledger-title">SỔ CHI TIẾT VẬT LIỆU, DỤNG CỤ, SẢN PHẨM, HÀNG HÓA</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Tên mặt hàng</th>
+            <th>Đơn vị tính</th>
+            <th class="text-right">Tổng Nhập</th>
+            <th class="text-right">Tổng Xuất</th>
+            <th class="text-right">Tồn Kho Cuối Kỳ</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.items.map(i => `
+            <tr>
+              <td><strong>${i.name}</strong></td>
+              <td>${i.unit}</td>
+              <td class="text-right">${i.inQty}</td>
+              <td class="text-right">${i.outQty}</td>
+              <td class="text-right font-bold" style="color: var(--clay-primary);">${i.balance}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <div class="ledger-signatures">
+        <div class="sig-box">
+          <strong>Thủ kho</strong><br><span>(Ký, họ tên)</span>
+          <div class="sig-space"></div>
+          <p>Thủ kho</p>
+        </div>
+        <div class="sig-box" style="margin-left: auto;">
+          <strong>Người đại diện Hộ kinh doanh</strong><br><span>(Ký, họ tên, đóng dấu)</span>
+          <div class="sig-space"></div>
+          <p>${data.artisanName}</p>
+        </div>
+      </div>
+    </div>
+  `
+};
+
+
+/**
+ * TOÀN BỘ LOGIC HỆ THỐNG QUẢN LÝ TÀI CHÍNH LÀNG NGHỀ (TÍCH HỢP AI GEMINI THẬT 100% - ĐÃ FIX KẾT NỐI)
+ */
+
+const DEFAULT_BUSINESS = {
+  name: "CƠ SỞ GỐM SỨ & THỦ CÔNG MỸ NGHỆ HÀ NỘI",
+  artisan: "Đặng Minh Tuấn",
+  address: "Khu chế tác Làng nghề Gốm cổ, Hà Nội",
+  taxId: "0109988776"
+};
+
+let appData = {
+  transactions: JSON.parse(localStorage.getItem('craft_transactions')) || [],
+  products: JSON.parse(localStorage.getItem('craft_products')) || [],
+  inventory: JSON.parse(localStorage.getItem('craft_inventory')) || [],
+  jobs: JSON.parse(localStorage.getItem('craft_jobs')) || [],
+  business: DEFAULT_BUSINESS,
+  apiKey: (typeof ENV_CONFIG !== 'undefined' && ENV_CONFIG.GEMINI_API_KEY) ? ENV_CONFIG.GEMINI_API_KEY : ''
+};
+
+// Dữ liệu mẫu ban đầu nếu trống
+if (!appData.transactions || appData.transactions.length === 0) {
+  appData.transactions = [
+    { id: 1730000000001, type: 'revenue_craft', date: '2026-11-01', amount: 3500000, person: 'Nguyễn Văn Nam', reason: 'Bán 02 bình gốm sen Bát Tràng', channel: 'bank', code: 'PT001' },
+    { id: 1730000000002, type: 'revenue_craft', date: '2026-11-03', amount: 1800000, person: 'Trần Thị Mai', reason: 'Bán bộ ấm chén tráng men ngọc', channel: 'cash', code: 'PT002' },
+    { id: 1730000000003, type: 'expense_material', date: '2026-11-02', amount: 1200000, person: 'Cơ sở men màu Đất Việt', reason: 'Mua men màu và phụ gia nung', channel: 'cash', code: 'PC001' }
+  ];
+}
+
+if (!appData.inventory || appData.inventory.length === 0) {
+  appData.inventory = [
+    { id: 1, action: 'in', type: 'material', name: 'Đất sét dẻo Tràng An', unit: 'Tấn', qty: 3, price: 1500000, partner: 'Công ty Đất Việt', date: '2026-11-01', code: 'PN001' },
+    { id: 2, action: 'out', type: 'material', name: 'Đất sét dẻo Tràng An', unit: 'Tấn', qty: 1.2, price: 1500000, partner: 'Tổ thợ vuốt gốm', date: '2026-11-02', code: 'PX001' },
+    { id: 3, action: 'in', type: 'finished', name: 'Bình gốm vuốt tay hoa sen', unit: 'Chiếc', qty: 10, price: 650000, partner: 'Lò nung số 1', date: '2026-11-03', code: 'PN002' }
+  ];
+}
+
+if (!appData.jobs || appData.jobs.length === 0) {
+  appData.jobs = [
+    { id: 1, title: 'Cần 02 thợ phụ nhào đất & canh lò nung gốm', category: 'craft_labor', wage: '350.000đ/ngày', desc: 'Làm việc theo ca nung tại Bát Tràng, bao ăn trưa.', contact: '0988888888' },
+    { id: 2, title: 'Tìm Freelancer chụp ảnh sản phẩm & viết câu chuyện di sản', category: 'freelancer_media', wage: '2.000.000đ/gói', desc: 'Chụp 15 sản phẩm gốm mộc và thiết kế ấn phẩm cho hội chợ.', contact: '0988888888' }
+  ];
+}
+
+saveToDisk();
+
+function saveToDisk() {
+  localStorage.setItem('craft_transactions', JSON.stringify(appData.transactions));
+  localStorage.setItem('craft_products', JSON.stringify(appData.products));
+  localStorage.setItem('craft_inventory', JSON.stringify(appData.inventory));
+  localStorage.setItem('craft_jobs', JSON.stringify(appData.jobs));
+}
+
+let resolvedGeminiModel = null;
+
+async function getAvailableModel(apiKey) {
+  if (resolvedGeminiModel) return resolvedGeminiModel;
+
+  // 1. Thử lấy danh sách model thực tế được cấp phép cho API key này
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`, {
+      headers: { "x-goog-api-key": apiKey }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      const models = data.models || [];
+      // Tìm model hỗ trợ generateContent, ưu tiên flash
+      const supported = models.filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent"));
+      const flash = supported.find(m => m.name.includes("flash"));
+      if (flash) {
+        resolvedGeminiModel = flash.name.replace("models/", "");
+        console.log("Đã phát hiện model Gemini khả dụng:", resolvedGeminiModel);
+        return resolvedGeminiModel;
+      }
+      if (supported.length > 0) {
+        resolvedGeminiModel = supported[0].name.replace("models/", "");
+        console.log("Đã phát hiện model Gemini khả dụng:", resolvedGeminiModel);
+        return resolvedGeminiModel;
+      }
+    }
+  } catch (e) {
+    console.warn("Không thể tự động query listModels:", e);
+  }
+
+  // Dự phòng nếu query thất bại
+  return "gemini-1.5-flash";
+}
+
+async function callGeminiAPI(parts, systemInstruction = "") {
+  const apiKey = appData.apiKey;
+
+  if (!apiKey) {
+    throw new Error("NO_API_KEY");
+  }
+
+  // Tự động tìm model khả dụng của chính tài khoản bạn
+  const activeModel = await getAvailableModel(apiKey);
+
+  // Danh sách model ưu tiên
+  const tryModels = [
+    activeModel,
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-latest",
+    "gemini-1.5-flash-001",
+    "gemini-1.5-flash-002",
+    "gemini-2.0-flash",
+    "gemini-1.5-pro"
+  ];
+
+  // Loại bỏ trùng lặp
+  const uniqueModels = [...new Set(tryModels)];
+  let lastError = null;
+
+  for (const m of uniqueModels) {
+    try {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`;
+      const payload = { contents: [{ parts: parts }] };
+      if (systemInstruction) {
+        payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (textOutput) {
+          resolvedGeminiModel = m; // Lưu lại model hoạt động tốt
+          return textOutput;
+        }
+      } else {
+        const errJson = await response.json().catch(() => ({}));
+        lastError = new Error(errJson.error?.message || `HTTP ${response.status} với ${m}`);
+      }
+    } catch (err) {
+      lastError = err;
+    }
+  }
+
+  throw lastError || new Error("Không thể kết nối với mô hình AI.");
+}
+
+// --- CHUYỂN TAB ĐIỀU HƯỚNG ---
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+
+  const target = document.getElementById(`tab-${tabId}`);
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(button => {
+    const isActive = button.dataset.tab === tabId;
+    button.classList.toggle('active', isActive);
+    if (isActive) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+
+  if (tabId === 'dashboard') renderDashboard();
+  if (tabId === 'transactions') renderTransactionsTable();
+  if (tabId === 'inventory') renderInventoryTable();
+  if (tabId === 'connector') renderJobBoard();
+  if (tabId === 'public-showcase') renderPublicShowcase();
+}
+
+// --- ĐỔI SỐ THÀNH CHỮ TIẾNG VIỆT CHUẨN XÁC ---
+function convertNumberToWords(amount) {
+  const digits = ["không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"];
+  const units = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ"];
+
+  if (amount === 0) return "Không đồng chẵn";
+  if (!amount || isNaN(amount)) return "";
+
+  let num = Math.abs(parseInt(amount));
+  let str = "";
+
+  function readThreeDigits(n, isLastGroup) {
+    let hundred = Math.floor(n / 100);
+    let ten = Math.floor((n % 100) / 10);
+    let one = n % 10;
+    let res = "";
+
+    if (hundred > 0 || !isLastGroup) {
+      res += digits[hundred] + " trăm ";
+    }
+    if (ten > 1) {
+      res += digits[ten] + " mươi ";
+      if (one === 1) res += "mốt ";
+      else if (one === 5) res += "lăm ";
+      else if (one > 0) res += digits[one] + " ";
+    } else if (ten === 1) {
+      res += "mười ";
+      if (one === 5) res += "lăm ";
+      else if (one > 0) res += digits[one] + " ";
+    } else if (ten === 0 && one > 0) {
+      if (hundred > 0 || !isLastGroup) res += "lẻ ";
+      res += digits[one] + " ";
+    }
+    return res;
+  }
+
+  let groups = [];
+  while (num > 0) {
+    groups.push(num % 1000);
+    num = Math.floor(num / 1000);
+  }
+
+  for (let i = groups.length - 1; i >= 0; i--) {
+    let grp = groups[i];
+    if (grp > 0) {
+      let isLast = (i === groups.length - 1);
+      str += readThreeDigits(grp, isLast) + units[i] + " ";
+    }
+  }
+
+  str = str.trim();
+  str = str.charAt(0).toUpperCase() + str.slice(1);
+  return str + " đồng chẵn.";
+}
+
+// --- BỘ TÍNH TOÁN DOANH THU & NGHĨA VỤ THUẾ (NGHỊ ĐỊNH 68/2026/NĐ-CP) ---
+function calculateRevenueSummary() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+  const currentQuarter = Math.ceil(currentMonth / 3);
+
+  let totalYear = 0, totalQuarter = 0, totalMonth = 0;
+  let cashBalance = 0, bankBalance = 0;
+
+  appData.transactions.forEach(t => {
+    const tDate = new Date(t.date);
+    const amt = Number(t.amount);
+    const isRev = t.type.startsWith('revenue');
+
+    if (isRev) {
+      if (t.channel === 'bank') bankBalance += amt;
+      else cashBalance += amt;
+
+      if (tDate.getFullYear() === currentYear) {
+        totalYear += amt;
+        const q = Math.ceil((tDate.getMonth() + 1) / 3);
+        if (q === currentQuarter) totalQuarter += amt;
+        if (tDate.getMonth() + 1 === currentMonth) totalMonth += amt;
+      }
+    } else {
+      if (t.channel === 'bank') bankBalance -= amt;
+      else cashBalance -= amt;
+    }
+  });
+
+  return { totalYear, totalQuarter, totalMonth, cashBalance, bankBalance, currentYear, currentQuarter, currentMonth };
+}
+
+function renderDashboard() {
+  const summary = calculateRevenueSummary();
+  document.getElementById('card-revenue-year').innerText = `${summary.totalYear.toLocaleString('vi-VN')} VNĐ`;
+  document.getElementById('card-revenue-quarter').innerText = `${summary.totalQuarter.toLocaleString('vi-VN')} VNĐ`;
+  document.getElementById('card-cash-balance').innerText = `${summary.cashBalance.toLocaleString('vi-VN')} VNĐ`;
+  document.getElementById('card-bank-balance').innerText = `${summary.bankBalance.toLocaleString('vi-VN')} VNĐ`;
+
+  const badge = document.getElementById('tax-status-badge');
+  if (summary.totalYear <= 500000000) {
+    badge.innerHTML = `<span style="color: var(--success); font-weight:700;">Doanh thu năm ≤ 500 triệu đồng: thuộc diện miễn thuế GTGT và TNCN.</span>`;
+  } else {
+    badge.innerHTML = `<span style="color: var(--danger); font-weight:700;">Doanh thu năm vượt 500 triệu đồng: cần theo dõi nghĩa vụ thuế.</span>`;
+  }
+
+  calculateTaxObligations();
+  renderRecentRevenuesTable();
+}
+
+function calculateTaxObligations() {
+  const period = document.getElementById('select-tax-period').value;
+  const summary = calculateRevenueSummary();
+  let rev = summary.totalQuarter;
+  let label = `Quý ${summary.currentQuarter}/${summary.currentYear}`;
+
+  if (period === 'year') {
+    rev = summary.totalYear;
+    label = `Năm ${summary.currentYear}`;
+  } else if (period === 'month') {
+    rev = summary.totalMonth;
+    label = `Tháng ${summary.currentMonth}/${summary.currentYear}`;
+  }
+
+  let text = "";
+  if (summary.totalYear <= 500000000) {
+    text = `
+      <strong>Chính sách ưu đãi:</strong> Doanh thu năm lũy kế đạt <strong>${summary.totalYear.toLocaleString('vi-VN')} VNĐ</strong> (≤ 500 triệu theo Điều 3, Điều 4 Nghị định 68/2026/NĐ-CP).<br>
+      • Thuế GTGT: <strong>0 VNĐ</strong><br>
+      • Thuế TNCN: <strong>0 VNĐ</strong><br>
+      <em>Chỉ cần mở sổ theo dõi doanh thu S1a/S2a để kê khai thông báo định kỳ.</em>
+    `;
+  } else {
+    const taxablePITRevenue = Math.max(0, summary.totalYear - 500000000);
+    const vat = rev * 0.03;
+    const pit = taxablePITRevenue * 0.015;
+
+    text = `
+      <strong>Kỳ theo dõi (${label}):</strong><br>
+      • Doanh thu tính thuế GTGT (3%): <strong>${vat.toLocaleString('vi-VN')} VNĐ</strong><br>
+      • Doanh thu tính thuế TNCN (sau giảm trừ 500 triệu): <strong>${taxablePITRevenue.toLocaleString('vi-VN')} VNĐ</strong><br>
+      • Thuế TNCN tạm tính (1.5%): <strong>${pit.toLocaleString('vi-VN')} VNĐ</strong><br>
+      <small style="color: var(--clay-primary);">*Cơ sở trên 1 tỷ đồng bắt buộc áp dụng HĐĐT khởi tạo từ máy tính tiền.</small>
+    `;
+  }
+  document.getElementById('tax-computation-details').innerHTML = text;
+}
+
+// --- THÊM & SỬA GIAO DỊCH ---
+function handleSaveTransaction(e) {
+  e.preventDefault();
+  const type = document.getElementById('trans-type').value;
+  const isRev = type.startsWith('revenue');
+  const amount = Number(document.getElementById('trans-amount').value);
+  const date = document.getElementById('trans-date').value;
+  const person = document.getElementById('trans-person').value;
+  const reason = document.getElementById('trans-reason').value;
+  const channel = document.getElementById('trans-channel').value;
+
+  const codePrefix = isRev ? 'PT' : 'PC';
+  const count = appData.transactions.filter(t => t.type.startsWith(isRev ? 'revenue' : 'expense')).length + 1;
+  const code = `${codePrefix}${String(count).padStart(3, '0')}`;
+
+  const newTrans = {
+    id: Date.now(),
+    type,
+    date,
+    amount,
+    person,
+    reason,
+    channel,
+    code
+  };
+
+  appData.transactions.unshift(newTrans);
+  saveToDisk();
+  document.getElementById('form-transaction').reset();
+  alert(`Đã lưu chứng từ ${code}!`);
+  renderTransactionsTable();
+  renderDashboard();
+}
+
+function openEditModal(id) {
+  const t = appData.transactions.find(x => x.id === id);
+  if (!t) return;
+
+  document.getElementById('edit-id').value = t.id;
+  document.getElementById('edit-code').value = t.code;
+  document.getElementById('edit-type').value = t.type;
+  document.getElementById('edit-channel').value = t.channel;
+  document.getElementById('edit-date').value = t.date;
+  document.getElementById('edit-amount').value = t.amount;
+  document.getElementById('edit-person').value = t.person;
+  document.getElementById('edit-reason').value = t.reason;
+
+  document.getElementById('edit-modal').classList.add('active');
+}
+
+function closeEditModal() {
+  document.getElementById('edit-modal').classList.remove('active');
+}
+
+function handleUpdateTransaction(e) {
+  e.preventDefault();
+  const id = Number(document.getElementById('edit-id').value);
+  const index = appData.transactions.findIndex(x => x.id === id);
+  if (index === -1) return;
+
+  appData.transactions[index].type = document.getElementById('edit-type').value;
+  appData.transactions[index].channel = document.getElementById('edit-channel').value;
+  appData.transactions[index].date = document.getElementById('edit-date').value;
+  appData.transactions[index].amount = Number(document.getElementById('edit-amount').value);
+  appData.transactions[index].person = document.getElementById('edit-person').value;
+  appData.transactions[index].reason = document.getElementById('edit-reason').value;
+
+  saveToDisk();
+  closeEditModal();
+  alert("Đã cập nhật số liệu thành công!");
+  renderTransactionsTable();
+  renderDashboard();
+}
+
+function handleDeleteTransaction() {
+  const id = Number(document.getElementById('edit-id').value);
+  if (!confirm("Bạn có chắc chắn muốn xóa chứng từ này khỏi sổ sách?")) return;
+
+  appData.transactions = appData.transactions.filter(x => x.id !== id);
+  saveToDisk();
+  closeEditModal();
+  alert("Đã xóa giao dịch.");
+  renderTransactionsTable();
+  renderDashboard();
+}
+
+function renderTransactionsTable() {
+  const tbody = document.querySelector('#table-vouchers tbody');
+  tbody.innerHTML = '';
+
+  appData.transactions.forEach(t => {
+    const isRev = t.type.startsWith('revenue');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${t.code}</strong></td>
+      <td>${t.date}</td>
+      <td>${t.person}</td>
+      <td class="text-right ${isRev ? 'color: var(--success)' : ''}">
+        ${isRev ? '+' : '-'}${Number(t.amount).toLocaleString('vi-VN')}
+      </td>
+      <td>
+        <button class="btn btn-secondary" style="padding: 3px 6px; font-size: 11px;" onclick="openEditModal(${t.id})">Sửa số liệu</button>
+        <button class="btn btn-primary" style="padding: 3px 6px; font-size: 11px;" onclick="printVoucherById(${t.id})">In Mẫu TT88</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderRecentRevenuesTable() {
+  const tbody = document.querySelector('#table-recent-revenues tbody');
+  tbody.innerHTML = '';
+  const revs = appData.transactions.filter(t => t.type.startsWith('revenue')).slice(0, 5);
+
+  revs.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${r.date}</td>
+      <td><strong>${r.code}</strong></td>
+      <td>${r.reason}</td>
+      <td class="text-right font-bold" style="color: var(--success);">${Number(r.amount).toLocaleString('vi-VN')}</td>
+      <td>
+        <button class="btn btn-secondary" style="padding: 2px 6px; font-size: 10px;" onclick="openEditModal(${r.id})">Sửa</button>
+        <button class="btn btn-secondary" style="padding: 2px 6px; font-size: 10px;" onclick="printVoucherById(${r.id})">In</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// --- QUẢN LÝ KHO & IN PHIẾU KHO (MẪU 03-VT & 04-VT) ---
+function handleSaveInventory(e) {
+  e.preventDefault();
+  const action = document.getElementById('inv-action').value;
+  const type = document.getElementById('inv-type').value;
+  const name = document.getElementById('inv-name').value;
+  const unit = document.getElementById('inv-unit').value;
+  const qty = Number(document.getElementById('inv-qty').value);
+  const price = Number(document.getElementById('inv-price').value);
+  const partner = document.getElementById('inv-partner').value;
+
+  const prefix = action === 'in' ? 'PN' : 'PX';
+  const count = appData.inventory.filter(i => i.action === action).length + 1;
+  const code = `${prefix}${String(count).padStart(3, '0')}`;
+  const date = new Date().toISOString().split('T')[0];
+
+  const item = {
+    id: Date.now(),
+    action,
+    type,
+    name,
+    unit,
+    qty,
+    price,
+    partner,
+    date,
+    code
+  };
+
+  appData.inventory.unshift(item);
+  saveToDisk();
+  document.getElementById('form-inventory').reset();
+  alert(`Đã ghi nhận kho ${code} thành công!`);
+  renderInventoryTable();
+}
+
+function getAggregatedInventory() {
+  const map = {};
+  appData.inventory.forEach(i => {
+    if (!map[i.name]) {
+      map[i.name] = { name: i.name, unit: i.unit, inQty: 0, outQty: 0 };
+    }
+    if (i.action === 'in') map[i.name].inQty += i.qty;
+    else map[i.name].outQty += i.qty;
+  });
+
+  return Object.values(map).map(item => ({
+    ...item,
+    balance: Math.round((item.inQty - item.outQty) * 10) / 10
+  }));
+}
+
+function renderInventoryTable() {
+  const tbody = document.querySelector('#table-inventory tbody');
+  tbody.innerHTML = '';
+  const items = getAggregatedInventory();
+
+  items.forEach(i => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${i.name}</strong></td>
+      <td>${i.unit}</td>
+      <td class="text-right">${i.inQty}</td>
+      <td class="text-right">${i.outQty}</td>
+      <td class="text-right font-bold" style="color: ${i.balance <= 0 ? 'var(--danger)' : 'var(--clay-primary)'};">${i.balance}</td>
+      <td>
+        <button class="btn btn-secondary" style="padding: 2px 6px; font-size: 10px;" onclick="printLatestInvVoucher('${i.name}')">In Phiếu</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function printLatestInvVoucher(itemName) {
+  const item = appData.inventory.find(x => x.name === itemName);
+  if (!item) return;
+
+  const tDate = new Date(item.date);
+  const totalAmount = item.qty * item.price;
+  const words = convertNumberToWords(totalAmount);
+
+  const payload = {
+    businessName: appData.business.name,
+    businessAddress: appData.business.address,
+    taxId: appData.business.taxId,
+    action: item.action,
+    code: item.code,
+    day: tDate.getDate(),
+    month: tDate.getMonth() + 1,
+    year: tDate.getFullYear(),
+    partner: item.partner,
+    itemName: item.name,
+    unit: item.unit,
+    qty: item.qty,
+    price: item.price,
+    amount: totalAmount,
+    amountWords: words,
+    artisanName: appData.business.artisan
+  };
+
+  document.getElementById('print-area').innerHTML = AccountingTemplates.inventoryVoucher(payload);
+  document.getElementById('print-modal').classList.add('active');
+}
+
+function exportInventoryLedger() {
+  const items = getAggregatedInventory();
+  const payload = {
+    businessName: appData.business.name,
+    businessAddress: appData.business.address,
+    taxId: appData.business.taxId,
+    items: items,
+    artisanName: appData.business.artisan
+  };
+
+  document.getElementById('print-area').innerHTML = AccountingTemplates.inventoryLedger(payload);
+  document.getElementById('print-modal').classList.add('active');
+}
+
+// --- IN PHIẾU THU, CHI, VÀ SỔ KẾ TOÁN ---
+function printVoucherById(id) {
+  const t = appData.transactions.find(x => x.id === id);
+  if (!t) return;
+
+  const tDate = new Date(t.date);
+  const words = convertNumberToWords(t.amount);
+  const isRev = t.type.startsWith('revenue');
+
+  const printPayload = {
+    businessName: appData.business.name,
+    businessAddress: appData.business.address,
+    taxId: appData.business.taxId,
+    code: t.code,
+    day: tDate.getDate(),
+    month: tDate.getMonth() + 1,
+    year: tDate.getFullYear(),
+    personName: t.person,
+    reason: t.reason,
+    amount: t.amount,
+    amountWords: words,
+    attachment: '01',
+    creatorName: 'Kế toán viên',
+    artisanName: appData.business.artisan
+  };
+
+  const html = isRev ? AccountingTemplates.receiptVoucher(printPayload) : AccountingTemplates.paymentVoucher(printPayload);
+  document.getElementById('print-area').innerHTML = html;
+  document.getElementById('print-modal').classList.add('active');
+}
+
+function closePrintModal() {
+  document.getElementById('print-modal').classList.remove('active');
+}
+
+function exportTaxLedger() {
+  const summary = calculateRevenueSummary();
+  const revenues = appData.transactions.filter(t => t.type.startsWith('revenue'));
+
+  let totalMan = 0, totalRet = 0;
+  const rows = revenues.map(r => {
+    const isMan = (r.type === 'revenue_craft');
+    if (isMan) totalMan += Number(r.amount);
+    else totalRet += Number(r.amount);
+    return {
+      date: r.date,
+      code: r.code,
+      desc: r.reason,
+      amount: r.amount,
+      isManufacture: isMan,
+      channel: r.channel
+    };
+  });
+
+  const payload = {
+    businessName: appData.business.name,
+    businessAddress: appData.business.address,
+    taxId: appData.business.taxId,
+    periodTitle: `Năm ${summary.currentYear}`,
+    year: summary.currentYear,
+    rows: rows,
+    totalManufacture: totalMan,
+    totalRetail: totalRet,
+    grandTotal: totalMan + totalRet,
+    taxExplanation: summary.totalYear <= 500000000 ? "Doanh thu năm ≤ 500 triệu: Thuộc diện không chịu thuế GTGT và miễn nộp thuế TNCN (NĐ 68/2026/NĐ-CP)." : "Doanh thu > 500 triệu: Áp dụng phương pháp tỷ lệ % và trừ 500 triệu trước khi tính thuế TNCN.",
+    vatAmount: summary.totalYear > 500000000 ? (totalMan * 0.03 + totalRet * 0.01) : 0,
+    pitAmount: summary.totalYear > 500000000 ? Math.max(0, (summary.totalYear - 500000000) * 0.015) : 0,
+    creatorName: 'Người lập biểu',
+    artisanName: appData.business.artisan
+  };
+
+  document.getElementById('print-area').innerHTML = AccountingTemplates.revenueLedger(payload);
+  document.getElementById('print-modal').classList.add('active');
+}
+
+function exportExpenseLedger() {
+  const expenses = appData.transactions.filter(t => !t.type.startsWith('revenue'));
+  let total = 0;
+  const rows = expenses.map(e => {
+    total += Number(e.amount);
+    return {
+      date: e.date,
+      code: e.code,
+      desc: e.reason,
+      type: e.type,
+      amount: e.amount
+    };
+  });
+
+  const payload = {
+    businessName: appData.business.name,
+    businessAddress: appData.business.address,
+    taxId: appData.business.taxId,
+    year: new Date().getFullYear(),
+    rows: rows,
+    totalExpense: total,
+    artisanName: appData.business.artisan
+  };
+
+  document.getElementById('print-area').innerHTML = AccountingTemplates.expenseLedger(payload);
+  document.getElementById('print-modal').classList.add('active');
+}
+
+// --- ĐỊNH GIÁ AI ĐA YẾU TỐ (MULTI-FACTOR AI PRICING) ---
+let currentCalculatedProduct = null;
+
+async function calculateArtisanPricing(e) {
+  e.preventDefault();
+  const name = document.getElementById('craft-name').value;
+  const mat = Number(document.getElementById('cost-material').value);
+  const kiln = Number(document.getElementById('cost-kiln').value);
+  const hours = Number(document.getElementById('craft-hours').value);
+  const rate = Number(document.getElementById('craft-rate').value);
+  const box = Number(document.getElementById('cost-box').value);
+  const defect = Number(document.getElementById('defect-rate').value) / 100;
+  const rep = document.getElementById('artisan-reputation').value;
+
+  const baseCost = mat + kiln + (hours * rate) + box;
+  const yieldRate = Math.max(0.5, 1 - defect);
+  const cogs = Math.round(baseCost / yieldRate);
+
+  let targetPrice = 0, floorPrice = 0, premiumPrice = 0, reasonText = "";
+
+  const btnSubmit = e.target.querySelector('button[type="submit"]');
+  const originalBtnText = btnSubmit.innerText;
+  btnSubmit.innerText = "⏳ AI Gemini Đang Phân Tích Định Giá...";
+  btnSubmit.disabled = true;
+
+  try {
+    const aiPrompt = `
+      Bạn là chuyên gia định giá hàng thủ công mỹ nghệ Việt Nam (Gốm, Lụa, Mây tre, Sơn mài).
+      Thông tin tạo tác:
+      - Tên tác phẩm: "${name}"
+      - Giá vốn sản xuất thực tế (COGS đã bù ${defect * 100}% hao hụt): ${cogs} VNĐ
+      - Giờ công thợ thủ công: ${hours} giờ (đơn giá ${rate} đ/h)
+      - Chi phí lò nung/nhiên liệu: ${kiln} VNĐ, Bao bì: ${box} VNĐ
+      - Phân hạng nghệ nhân & sức cầu thị trường: "${rep}"
+
+      Yêu cầu:
+      Đưa ra định dạng JSON duy nhất (không bọc trong markdown hay backticks):
+      {
+        "floorPrice": số nguyên (giá sàn bảo toàn vốn),
+        "targetPrice": số nguyên (giá bán lẻ đề xuất tối ưu),
+        "premiumPrice": số nguyên (giá bán quà tặng cao cấp/triển lãm),
+        "reason": "1 câu giải thích ngắn gọn, súc tích dưới 35 từ về lý do định giá này"
+      }
+    `;
+
+    const aiResponse = await callGeminiAPI([{ text: aiPrompt }]);
+    const cleanJson = aiResponse.replace(/```json|```/g, "").trim();
+    const parsed = JSON.parse(cleanJson);
+
+    floorPrice = parsed.floorPrice || Math.round(cogs * 1.15);
+    targetPrice = parsed.targetPrice || Math.round(cogs * 1.35);
+    premiumPrice = parsed.premiumPrice || Math.round(cogs * 1.7);
+    reasonText = parsed.reason || "AI đã cân đối giá vốn, công thợ và sức cầu thị trường.";
+  } catch (err) {
+    console.warn("Không gọi được Gemini API định giá, sử dụng công thức dự phòng:", err.message);
+    let multiplier = 1.35;
+    reasonText = "Biên lợi nhuận 35% đảm bảo bù đắp công thợ và chi phí hao mòn xưởng.";
+
+    if (rep === 'artisan') {
+      multiplier = 1.65;
+      reasonText = "Cộng thêm 30% giá trị độc bản do nghệ nhân lâu năm tạo tác.";
+    } else if (rep === 'peak_season') {
+      multiplier = 1.50;
+      reasonText = "Điều chỉnh tăng 15% nắm bắt sức cầu quà tặng cao điểm mùa lễ hội.";
+    }
+
+    targetPrice = Math.round(cogs * multiplier);
+    floorPrice = Math.round(cogs * 1.15);
+    premiumPrice = Math.round(cogs * (multiplier + 0.4));
+  } finally {
+    btnSubmit.innerText = originalBtnText;
+    btnSubmit.disabled = false;
+  }
+
+  currentCalculatedProduct = {
+    id: Date.now(),
+    name,
+    cogs,
+    floorPrice,
+    targetPrice,
+    premiumPrice,
+    image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=500&q=80',
+    artisan: appData.business.artisan,
+    desc: `${name} được chế tác thủ công tinh xảo, tráng men tự nhiên cổ truyền.`
+  };
+
+  document.getElementById('res-cogs').innerText = `${cogs.toLocaleString('vi-VN')} VNĐ`;
+  document.getElementById('res-breakeven').innerText = `${cogs.toLocaleString('vi-VN')} VNĐ`;
+  document.getElementById('res-price-floor').innerText = `${floorPrice.toLocaleString('vi-VN')} đ`;
+  document.getElementById('res-price-target').innerText = `${targetPrice.toLocaleString('vi-VN')} đ`;
+  document.getElementById('res-price-premium').innerText = `${premiumPrice.toLocaleString('vi-VN')} đ`;
+  document.getElementById('res-reason').innerHTML = `<strong>Lý giải từ AI:</strong> ${reasonText}`;
+
+  document.getElementById('pricing-placeholder').style.display = 'none';
+  document.getElementById('pricing-results').style.display = 'block';
+}
+
+function syncToPublicShowcase() {
+  if (!currentCalculatedProduct) return;
+  appData.products.unshift(currentCalculatedProduct);
+  saveToDisk();
+  alert(`Đã xuất bản "${currentCalculatedProduct.name}" lên Web Triển Lãm!`);
+}
+
+function renderPublicShowcase() {
+  const container = document.getElementById('public-product-grid');
+  container.innerHTML = '';
+
+  if (appData.products.length === 0) {
+    container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Chưa có sản phẩm nào. Hãy vào mục "Định Giá AI" và bấm "Đồng Bộ Xuất Bản".</div>';
+    return;
+  }
+
+  appData.products.forEach(p => {
+    const card = document.createElement('div');
+    card.style = "background: #fff; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;";
+    card.innerHTML = `
+      <img src="${p.image}" style="width: 100%; height: 200px; object-fit: cover;">
+      <div style="padding: 16px; flex: 1; display: flex; flex-direction: column;">
+        <span style="font-size: 11px; color: var(--gold-highlight); font-weight: 700; text-transform: uppercase;">Nghệ nhân: ${p.artisan}</span>
+        <h3 style="font-size: 15px; margin: 4px 0 8px; color: var(--clay-dark);">${p.name}</h3>
+        <p style="font-size: 12px; color: var(--text-muted); flex: 1; margin-bottom: 12px;">${p.desc}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 10px;">
+          <div>
+            <span style="font-size: 11px; color: var(--text-muted);">Giá niêm yết:</span><br>
+            <strong style="color: var(--clay-primary); font-size: 16px;">${p.targetPrice.toLocaleString('vi-VN')} đ</strong>
+          </div>
+          <a href="https://zalo.me/0988888888?text=${encodeURIComponent('Chào nghệ nhân Tuấn, tôi muốn đặt hàng tác phẩm ' + p.name)}" target="_blank" class="btn btn-primary" style="font-size: 11px; padding: 6px 12px; text-decoration: none;">
+            Đặt Hàng Zalo
+          </a>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// --- CẦU NỐI THỢ & FREELANCER (CONNECTOR) ---
+function handlePostJob(e) {
+  e.preventDefault();
+  const title = document.getElementById('job-title').value;
+  const category = document.getElementById('job-category').value;
+  const wage = document.getElementById('job-wage').value;
+  const desc = document.getElementById('job-desc').value;
+
+  const newJob = {
+    id: Date.now(),
+    title,
+    category,
+    wage,
+    desc,
+    contact: '0988888888'
+  };
+
+  appData.jobs.unshift(newJob);
+  saveToDisk();
+  document.getElementById('form-job-post').reset();
+  alert("Đã đăng tin tuyển dụng thành công!");
+  renderJobBoard();
+}
+
+function renderJobBoard() {
+  const container = document.getElementById('job-board-container');
+  container.innerHTML = '';
+
+  appData.jobs.forEach(j => {
+    const box = document.createElement('div');
+    box.style = "background: var(--kraft-bg); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;";
+    box.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <strong style="color: var(--clay-dark); font-size: 14px;">${j.title}</strong>
+        <span style="background: #fff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; color: var(--indigo-accent);">${j.category === 'craft_labor' ? 'Thợ thủ công' : 'Freelancer sáng tạo'}</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-main); margin-bottom: 6px;">${j.desc}</p>
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+        <span style="color: var(--clay-primary); font-weight: bold;">Mức thù lao: ${j.wage}</span>
+        <a href="https://zalo.me/${j.contact}?text=${encodeURIComponent('Chào cơ sở, tôi ứng tuyển vị trí: ' + j.title)}" target="_blank" class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px; text-decoration: none;">
+          Ứng Tuyển Qua Zalo
+        </a>
+      </div>
+    `;
+    container.appendChild(box);
+  });
+}
+
+// --- CAMERA & AI VISION OCR BÓC TÁCH HÓA ĐƠN THẬT ---
+let videoStream = null;
+let currentCapturedBase64 = null;
+
+async function startCamera() {
+  const video = document.getElementById('webcam-video');
+  const btnSnap = document.getElementById('btn-snap');
+  try {
+    videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+    video.srcObject = videoStream;
+    video.style.display = 'block';
+    btnSnap.style.display = 'inline-flex';
+  } catch (err) {
+    alert("Không thể mở camera. Bạn có thể sử dụng nút 'Chọn Ảnh Từ Máy'.");
+  }
+}
+
+function capturePhoto() {
+  const video = document.getElementById('webcam-video');
+  const canvas = document.getElementById('photo-canvas');
+  const img = document.getElementById('preview-img');
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+
+  const dataUrl = canvas.toDataURL('image/jpeg');
+  img.src = dataUrl;
+  img.style.display = 'block';
+  video.style.display = 'none';
+
+  currentCapturedBase64 = dataUrl.split(',')[1];
+
+  if (videoStream) {
+    videoStream.getTracks().forEach(track => track.stop());
+  }
+  document.getElementById('btn-snap').style.display = 'none';
+}
+
+function handleFileUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const img = document.getElementById('preview-img');
+    img.src = event.target.result;
+    img.style.display = 'block';
+    currentCapturedBase64 = event.target.result.split(',')[1];
+  };
+  reader.readAsDataURL(file);
+}
+
+async function runSimulatedOCR() {
+  const resultBox = document.getElementById('ocr-result-box');
+  resultBox.style.display = 'block';
+  resultBox.innerHTML = '<em>⏳ Đang gửi ảnh lên Gemini Vision AI để bóc tách chữ và số tiền...</em>';
+
+  if (!currentCapturedBase64) {
+    resultBox.innerHTML = '<span style="color: var(--danger);">Vui lòng chụp ảnh hoặc chọn ảnh hóa đơn/sản phẩm trước khi quét.</span>';
+    return;
+  }
+
+  try {
+    const prompt = `
+      Hãy phân tích hình ảnh này (hóa đơn mua hàng hoặc sản phẩm thủ công truyền thống).
+      Trích xuất thông tin và trả về đúng 1 chuỗi JSON duy nhất (không bọc trong markdown hay backticks):
+      {
+        "supplier": "Tên nơi bán hoặc tên xưởng cung cấp",
+        "date": "YYYY-MM-DD (hoặc ngày hôm nay nếu không thấy)",
+        "amount": số nguyên (tổng tiền thanh toán VNĐ),
+        "reason": "Tên các vật tư/sản phẩm được mua",
+        "category": "expense_material hoặc expense_fuel hoặc expense_labor"
+      }
+    `;
+
+    const parts = [
+      { text: prompt },
+      {
+        inline_data: {
+          mime_type: "image/jpeg",
+          data: currentCapturedBase64
+        }
+      }
+    ];
+
+    const aiText = await callGeminiAPI(parts);
+    const cleanJson = aiText.replace(/```json|```/g, "").trim();
+    const parsed = JSON.parse(cleanJson);
+
+    resultBox.innerHTML = `
+      <div style="background: var(--kraft-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+        <strong style="color: var(--success);">✓ AI Gemini Vision Bóc Tách Thành Công:</strong><br>
+        • Bên phát hành: <strong>${parsed.supplier || 'Không xác định'}</strong><br>
+        • Ngày lập: <strong>${parsed.date || 'Hôm nay'}</strong><br>
+        • Vật tư bóc tách: <strong>${parsed.reason || 'Nguyên vật liệu thủ công'}</strong><br>
+        • Tổng tiền: <strong>${Number(parsed.amount || 0).toLocaleString('vi-VN')} VNĐ</strong><br>
+        <button class="btn btn-primary" style="margin-top: 8px; font-size: 11px;" onclick="applyScannedToForm(${parsed.amount || 0}, '${(parsed.supplier || '').replace(/'/g, "\\'") }', '${(parsed.reason || '').replace(/'/g, "\\'") }', '${parsed.date || ''}')">
+          Điền Nhanh Vào Sổ & Phiếu Chi
+        </button>
+      </div>
+    `;
+  } catch (err) {
+    console.warn("Lỗi gọi Gemini Vision OCR:", err.message);
+    if (err.message === "NO_API_KEY") {
+      resultBox.innerHTML = '<span style="color: var(--text-muted);">Tính năng quét hóa đơn chưa được cấu hình.</span>';
+    } else {
+      resultBox.innerHTML = '<span style="color: var(--danger);">Không thể phân tích ảnh. Vui lòng thử lại sau.</span>';
+    }
+  }
+}
+
+function applyScannedToForm(amount, supplier, reason, date) {
+  switchTab('transactions');
+  document.getElementById('trans-type').value = 'expense_material';
+  document.getElementById('trans-amount').value = amount;
+  document.getElementById('trans-person').value = supplier;
+  document.getElementById('trans-reason').value = reason;
+  document.getElementById('trans-date').value = date || new Date().toISOString().split('T')[0];
+}
+
+// --- TRỢ LÝ AI TÀI CHÍNH TƯƠNG TÁC THẬT 100% ---
+async function sendChatMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const chatMessages = document.getElementById('chat-messages');
+  const userBubble = document.createElement('div');
+  userBubble.className = 'chat-bubble user';
+  userBubble.innerText = text;
+  chatMessages.appendChild(userBubble);
+  input.value = '';
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Hiển thị trạng thái đang suy nghĩ
+  const loadingBubble = document.createElement('div');
+  loadingBubble.className = 'chat-bubble assistant';
+  loadingBubble.id = 'ai-loading-bubble';
+  loadingBubble.innerText = "⏳ Trợ lý AI đang tra cứu luật và phân tích dòng tiền...";
+  chatMessages.appendChild(loadingBubble);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  try {
+    const summary = calculateRevenueSummary();
+    const systemPrompt = `
+      Bạn là cố vấn tài chính & kế toán chuyên nghiệp dành cho tiểu thương, nghệ nhân làng nghề truyền thống Việt Nam.
+      Bối cảnh cơ sở hiện tại:
+      - Tên chủ cơ sở: "${appData.business.artisan}", Cơ sở: "${appData.business.name}".
+      - Doanh thu lũy kế cả năm: ${summary.totalYear} VNĐ (Ngưỡng 500 triệu theo Nghị định 68/2026/NĐ-CP).
+      - Doanh thu Quý hiện tại: ${summary.totalQuarter} VNĐ.
+      - Tồn quỹ tiền mặt: ${summary.cashBalance} VNĐ, Tiền ngân hàng: ${summary.bankBalance} VNĐ.
+      - Chế độ kế toán áp dụng: Thông tư 152/2025/TT-BTC & Thông tư 88/2021/TT-BTC (Phiếu thu 01-TT, Phiếu chi 02-TT, Sổ S1a, S2a, S2c, S2d, S2e).
+
+      Yêu cầu phản hồi:
+      - Sử dụng tiếng Việt chuẩn mực, thân thiện, dễ hiểu, tránh thuật ngữ hàn lâm trừ khi giải thích cụ thể.
+      - Trực tiếp đưa ra giải pháp thực tế hoặc hướng dẫn nghệ nhân thao tác trên phần mềm.
+    `;
+
+    const reply = await callGeminiAPI([{ text: text }], systemPrompt);
+
+    const curLoading = document.getElementById('ai-loading-bubble');
+    if (curLoading) curLoading.remove();
+
+    renderAiReply(reply);
+  } catch (err) {
+    const curLoading = document.getElementById('ai-loading-bubble');
+    if (curLoading) curLoading.remove();
+
+    if (err.message === "NO_API_KEY") {
+      renderAiReply("Trợ lý AI chưa được cấu hình. Vui lòng thử lại sau.");
+    } else {
+      renderAiReply("Không thể kết nối trợ lý AI. Vui lòng thử lại sau.");
+    }
+  }
+}
+
+function renderAiReply(replyText) {
+  const chatMessages = document.getElementById('chat-messages');
+  const aiBubble = document.createElement('div');
+  aiBubble.className = 'chat-bubble assistant';
+  aiBubble.innerHTML = replyText.replace(/\n/g, '<br>');
+  chatMessages.appendChild(aiBubble);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// --- KHỞI ĐỘNG HỆ THỐNG ---
+window.addEventListener('DOMContentLoaded', renderDashboard);
+
+</script>
+</body>
+</html>
