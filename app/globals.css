@@ -29,7 +29,7 @@ button, input, select, textarea { font: inherit; }
 button { color: inherit; }
 img { display: block; max-width: 100%; }
 ::selection { background: #dbe5d9; color: var(--green-dark); }
-:focus-visible { outline: 3px solid rgba(49, 93, 72, .32); outline-offset: 3px; }
+:focus-visible { outline: 3px solid rgba(169, 101, 70, .32); outline-offset: 3px; }
 
 .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(226, 224, 215, .88); background: rgba(255, 254, 250, .94); backdrop-filter: blur(16px); }
 .header-inner { width: min(1240px, calc(100% - 56px)); min-height: 76px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
@@ -182,6 +182,15 @@ img { display: block; max-width: 100%; }
 .field input[type=file] { padding: 7px; }
 .field small { color: var(--muted); font-size: 10px; }
 .field input::placeholder, .field textarea::placeholder { color: #929a91; }
+.currency-field { min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.currency-field .currency-input { min-height: 44px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; letter-spacing: .01em; }
+.amount-shortcuts { display: flex; flex-wrap: wrap; gap: 6px; }
+.amount-chip { min-height: 27px; padding: 4px 9px; border: 1px solid rgba(169, 101, 70, .22); border-radius: 999px; background: var(--clay-soft); color: #875039; cursor: pointer; font-size: 9px; font-weight: 700; transition: background .16s ease, border-color .16s ease, transform .16s ease; }
+.amount-chip:hover { transform: translateY(-1px); border-color: rgba(169, 101, 70, .42); background: #ecd8c9; }
+.amount-chip:focus-visible { outline-color: rgba(169, 101, 70, .38); }
+.editor-section-label { grid-column: 1 / -1; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--line); }
+.editor-section-label h4 { margin: 0; color: var(--foreground); font-family: var(--serif); font-size: 16px; font-weight: 600; }
+.editor-section-label p { margin: 3px 0 0; color: var(--muted); font-size: 10px; }
 .form-error { margin: 0; color: var(--danger); font-size: 11px; }
 .auth-switch { margin: 20px 0 0; color: var(--muted); text-align: center; font-size: 11px; }
 .auth-switch a { color: var(--green); font-weight: 700; }
@@ -219,9 +228,9 @@ img { display: block; max-width: 100%; }
 .guide-steps strong { font-size: 12px; }
 .guide-steps p { margin: 5px 0 0; color: var(--muted); font-size: 10px; line-height: 1.6; }
 .dashboard-stats { margin-top: 18px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; }
-.dashboard-stat { padding: 12px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 10px; }
+.dashboard-stat { padding: 14px; display: flex; flex-direction: column; gap: 7px; border: 1px solid rgba(169,101,70,.15); border-radius: 11px; background: linear-gradient(145deg,#fffefa,#fbf8f1); box-shadow: 0 5px 16px rgba(85,50,26,.045); }
 .dashboard-stat span { color: var(--muted); font-size: 9px; }
-.dashboard-stat strong { color: var(--green); font-size: 16px; }
+.dashboard-stat strong { color: var(--green); font-size: 16px; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
 .product-editor { margin-bottom: 23px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: #fbfaf6; }
 .editor-heading h3 { margin: 0; font-family: var(--serif); font-size: 20px; font-weight: 600; }
 .editor-heading p { margin: 4px 0 17px; color: var(--muted); font-size: 10px; }
@@ -278,9 +287,9 @@ img { display: block; max-width: 100%; }
 
 /* Finance ledger and raw-material inventory */
 .finance-summary { margin-bottom: 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
-.finance-summary article { min-width: 0; padding: 13px 14px; display: flex; flex-direction: column; gap: 5px; border: 1px solid var(--line); border-radius: 10px; background: #fbfaf6; }
+.finance-summary article { min-width: 0; padding: 15px; display: flex; flex-direction: column; gap: 7px; border: 1px solid rgba(169,101,70,.15); border-radius: 11px; background: linear-gradient(145deg,#fffefa,#fbf8f1); box-shadow: 0 5px 16px rgba(85,50,26,.045); }
 .finance-summary span { color: var(--muted); font-size: 9px; }
-.finance-summary strong { color: var(--green); font-size: 15px; }
+.finance-summary strong { color: var(--green); font-size: 15px; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
 .finance-layout { display: grid; grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr); align-items: start; gap: 16px; }
 .finance-entry-form, .inventory-editor { padding: 17px; border: 1px solid var(--line); border-radius: 11px; background: #fbfaf6; }
 .finance-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
