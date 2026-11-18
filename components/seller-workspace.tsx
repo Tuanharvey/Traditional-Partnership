@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { CurrencyInput } from '@/components/currency-input'
 import { SignOutButton } from '@/components/sign-out-button'
 
 type SellerProduct = {
@@ -132,6 +133,8 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
   const [movementQuantity, setMovementQuantity] = useState<Record<string, string>>({})
   const [movementUnitCost, setMovementUnitCost] = useState<Record<string, string>>({})
   const [movementNote, setMovementNote] = useState<Record<string, string>>({})
+  const [entryAmount, setEntryAmount] = useState('')
+  const [inventoryInitialUnitCost, setInventoryInitialUnitCost] = useState('0')
 
   useEffect(() => {
     const urls = imageFiles.map((file) => URL.createObjectURL(file))
@@ -277,6 +280,7 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
       const result = await response.json()
       if (!response.ok) throw new Error(result.error ?? 'Chưa thể lưu bút toán.')
       form.reset()
+      setEntryAmount('')
       setNotice('Đã ghi nhận bút toán tài chính.')
       router.refresh()
     } catch (error) {
@@ -307,6 +311,7 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
       const result = await response.json()
       if (!response.ok) throw new Error(result.error ?? 'Chưa thể lưu vật tư.')
       form.reset()
+      setInventoryInitialUnitCost('0')
       setNotice('Đã thêm vật tư vào sổ kho.')
       router.refresh()
     } catch (error) {
@@ -393,9 +398,11 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
               <div className="field"><label htmlFor="product-name">Tên sản phẩm</label><input id="product-name" value={name} onChange={(event) => setName(event.target.value)} minLength={2} maxLength={120} required /></div>
               <div className="field"><label htmlFor="product-category">Danh mục</label><select id="product-category" value={category} onChange={(event) => setCategory(event.target.value)}><option value="ceramics">Gốm sứ</option><option value="textiles">Dệt may</option><option value="bamboo">Mây tre</option><option value="lacquer">Sơn mài</option><option value="other">Khác</option></select></div>
               <div className="field field-wide"><label htmlFor="product-description">Mô tả và câu chuyện sản phẩm</label><textarea id="product-description" name="description" rows={4} maxLength={2000} placeholder="Chất liệu, kỹ thuật chế tác, kích thước và câu chuyện đằng sau tác phẩm…" /></div>
-              <div className="field"><label htmlFor="material-cost">Chi phí vật liệu (VNĐ)</label><input id="material-cost" type="number" min="0" max="100000000" value={materialCost} onChange={(event) => setMaterialCost(event.target.value)} required /></div>
-              <div className="field"><label htmlFor="labor-cost">Chi phí lao động (VNĐ)</label><input id="labor-cost" type="number" min="0" max="100000000" value={laborCost} onChange={(event) => setLaborCost(event.target.value)} required /></div>
-              <div className="field"><label htmlFor="selling-price">Giá bán (VNĐ)</label><input id="selling-price" type="number" min="1" max="100000000" value={price} onChange={(event) => setPrice(event.target.value)} required /></div>
+              <div className="editor-section-label field-wide"><h4>Chi phí và giá bán</h4><p>Nhập giá trị bằng đồng; dấu phân cách sẽ tự định dạng khi bạn gõ.</p></div>
+              <div className="field"><label htmlFor="material-cost">Chi phí vật liệu</label><CurrencyInput id="material-cost" value={materialCost} onChange={setMaterialCost} maxAmount={100000000} required /></div>
+              <div className="field"><label htmlFor="labor-cost">Chi phí lao động</label><CurrencyInput id="labor-cost" value={laborCost} onChange={setLaborCost} maxAmount={100000000} required /></div>
+              <div className="field"><label htmlFor="selling-price">Giá bán</label><CurrencyInput id="selling-price" value={price} onChange={setPrice} maxAmount={100000000} required /></div>
+              <div className="editor-section-label field-wide"><h4>Trưng bày và tồn kho</h4><p>Ảnh sản phẩm và số lượng sẵn có sẽ hiển thị cho khách hàng.</p></div>
               <div className="field"><label htmlFor="stock-quantity">Số lượng hiện có</label><input id="stock-quantity" name="stockQuantity" type="number" min="0" max="10000" defaultValue="1" required /></div>
               <div className="field field-wide"><label htmlFor="product-images">Ảnh sản phẩm</label><input id="product-images" type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={handleFilesChange} /><small>Tối đa 6 ảnh JPG, PNG hoặc WebP; mỗi ảnh tối đa 5 MB.</small></div>
             </div>
@@ -429,7 +436,7 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
               <div className="field"><label htmlFor="entry-type">Loại bút toán</label><select id="entry-type" name="entryType" defaultValue="expense"><option value="income">Doanh thu</option><option value="expense">Chi phí</option></select></div>
               <div className="field"><label htmlFor="entry-category">Danh mục</label><select id="entry-category" name="category" defaultValue="materials"><option value="sales">Doanh thu bán hàng</option><option value="materials">Nguyên vật liệu</option><option value="labor">Nhân công</option><option value="packaging">Bao bì và vận chuyển</option><option value="operating">Vận hành xưởng</option><option value="other">Khác</option></select></div>
               <div className="field"><label htmlFor="entry-description">Diễn giải</label><input id="entry-description" name="description" minLength={2} maxLength={240} required placeholder="Ví dụ: mua men màu" /></div>
-              <div className="finance-form-row"><div className="field"><label htmlFor="entry-amount">Số tiền (VNĐ)</label><input id="entry-amount" name="amount" type="number" min="1" max="100000000" required /></div><div className="field"><label htmlFor="entry-date">Ngày</label><input id="entry-date" name="entryDate" type="date" defaultValue={new Date().toISOString().slice(0, 10)} required /></div></div>
+              <div className="finance-form-row"><div className="field"><label htmlFor="entry-amount">Số tiền</label><CurrencyInput id="entry-amount" name="amount" value={entryAmount} onChange={setEntryAmount} maxAmount={100000000} required /></div><div className="field"><label htmlFor="entry-date">Ngày</label><input id="entry-date" name="entryDate" type="date" defaultValue={new Date().toISOString().slice(0, 10)} required /></div></div>
               <div className="field"><label htmlFor="entry-payment">Kênh thanh toán</label><select id="entry-payment" name="paymentMethod" defaultValue="cash"><option value="cash">Tiền mặt</option><option value="bank">Chuyển khoản ngân hàng</option><option value="other">Khác</option></select></div>
               <button className="button button-primary button-full" type="submit" disabled={pending}>{pending ? 'Đang lưu…' : 'Ghi vào sổ'}</button>
             </form>
@@ -450,7 +457,7 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
               <div className="field"><label htmlFor="inventory-name">Tên vật tư</label><input id="inventory-name" name="name" required minLength={2} maxLength={120} placeholder="Đất sét, sợi, gỗ…" /></div>
               <div className="field"><label htmlFor="inventory-unit">Đơn vị tính</label><input id="inventory-unit" name="unit" required maxLength={24} placeholder="kg, mét, bao…" /></div>
               <div className="field"><label htmlFor="inventory-quantity">Số lượng ban đầu</label><input id="inventory-quantity" name="quantity" type="number" step="0.01" min="0" defaultValue="0" required /></div>
-              <div className="field"><label htmlFor="inventory-cost">Đơn giá vật tư (VNĐ)</label><input id="inventory-cost" name="unitCost" type="number" min="0" defaultValue="0" required /></div>
+              <div className="field"><label htmlFor="inventory-cost">Đơn giá vật tư</label><CurrencyInput id="inventory-cost" name="unitCost" value={inventoryInitialUnitCost} onChange={setInventoryInitialUnitCost} maxAmount={100000000} required /></div>
               <div className="field"><label htmlFor="inventory-reorder">Ngưỡng báo sắp hết</label><input id="inventory-reorder" name="reorderLevel" type="number" step="0.01" min="0" defaultValue="0" required /></div>
             </div>
             <button className="button button-primary" type="submit" disabled={pending}>{pending ? 'Đang lưu…' : 'Thêm vào kho'}</button>
@@ -460,7 +467,7 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
             return <article className="inventory-row" key={item.id}>
               <div className="inventory-info"><strong>{item.name}</strong><span>{money.format(item.unitCost)} / {item.unit}</span></div>
               <div className="inventory-level"><strong>{item.quantity} {item.unit}</strong><span className={lowStock ? 'stock-low' : ''}>{lowStock ? 'Sắp chạm ngưỡng bổ sung' : `Ngưỡng bổ sung: ${item.reorderLevel} ${item.unit}`}</span></div>
-              <div className="inventory-adjust"><label className="sr-only" htmlFor={`movement-qty-${item.id}`}>Số lượng điều chỉnh {item.name}</label><input id={`movement-qty-${item.id}`} type="number" min="0.01" step="0.01" value={movementQuantity[item.id] ?? ''} onChange={(event) => setMovementQuantity((current) => ({ ...current, [item.id]: event.target.value }))} placeholder="Số lượng" /><label className="sr-only" htmlFor={`movement-cost-${item.id}`}>Đơn giá nhập {item.name}</label><input id={`movement-cost-${item.id}`} type="number" min="0" value={movementUnitCost[item.id] ?? String(item.unitCost)} onChange={(event) => setMovementUnitCost((current) => ({ ...current, [item.id]: event.target.value }))} placeholder="Đơn giá nhập" /><button className="button button-outline" type="button" disabled={pending || !movementQuantity[item.id]} onClick={() => recordInventoryMovement(item.id, 'stock_in')}>Nhập</button><button className="button button-quiet" type="button" disabled={pending || !movementQuantity[item.id]} onClick={() => recordInventoryMovement(item.id, 'stock_out')}>Xuất</button></div>
+              <div className="inventory-adjust"><label className="sr-only" htmlFor={`movement-qty-${item.id}`}>Số lượng điều chỉnh {item.name}</label><input id={`movement-qty-${item.id}`} type="number" min="0.01" step="0.01" value={movementQuantity[item.id] ?? ''} onChange={(event) => setMovementQuantity((current) => ({ ...current, [item.id]: event.target.value }))} placeholder="Số lượng" /><label className="sr-only" htmlFor={`movement-cost-${item.id}`}>Đơn giá nhập {item.name}</label><CurrencyInput id={`movement-cost-${item.id}`} value={movementUnitCost[item.id] ?? String(item.unitCost)} onChange={(value) => setMovementUnitCost((current) => ({ ...current, [item.id]: value }))} maxAmount={100000000} quickAmounts={[]} placeholder="Đơn giá nhập" /><button className="button button-outline" type="button" disabled={pending || !movementQuantity[item.id]} onClick={() => recordInventoryMovement(item.id, 'stock_in')}>Nhập</button><button className="button button-quiet" type="button" disabled={pending || !movementQuantity[item.id]} onClick={() => recordInventoryMovement(item.id, 'stock_out')}>Xuất</button></div>
             </article>
           })}</div> : <div className="empty-state compact-empty"><h3>Chưa có vật tư trong kho.</h3><p>Thêm đất, sợi, gỗ hoặc vật liệu khác để theo dõi số lượng và chi phí nhập.</p></div>}
           {inventoryMovements.length ? <div className="inventory-history"><div className="ledger-heading"><h3>Nhật ký nhập xuất</h3><span>{inventoryMovements.length} lần gần nhất</span></div>{inventoryMovements.map((movement) => <article className="ledger-row" key={movement.id}><div><strong>{movement.itemName}</strong><span>{new Date(movement.occurredAt).toLocaleDateString('vi-VN')} · {movement.note || (movement.movementType === 'stock_in' ? 'Nhập kho' : 'Xuất kho')}</span></div><strong className={movement.movementType === 'stock_in' ? 'ledger-income' : 'ledger-expense'}>{movement.movementType === 'stock_in' ? '+' : '−'}{movement.quantity}</strong></article>)}</div> : null}
@@ -474,8 +481,8 @@ export function SellerWorkspace({ products, orders, financialEntries, inventoryI
             <form className="form-stack pricing-form" onSubmit={getPriceRecommendation}>
               <div className="field"><label htmlFor="pricing-name">Tên tác phẩm</label><input id="pricing-name" value={pricingName} onChange={(event) => setPricingName(event.target.value)} minLength={2} maxLength={120} required /></div>
               <div className="field"><label htmlFor="pricing-category">Danh mục so sánh</label><select id="pricing-category" value={pricingCategory} onChange={(event) => setPricingCategory(event.target.value)}><option value="ceramics">Gốm sứ</option><option value="textiles">Dệt may</option><option value="bamboo">Mây tre</option><option value="lacquer">Sơn mài</option><option value="other">Khác</option></select></div>
-              <div className="field"><label htmlFor="pricing-material">Chi phí vật liệu (VNĐ)</label><input id="pricing-material" type="number" min="0" max="100000000" value={pricingMaterial} onChange={(event) => setPricingMaterial(event.target.value)} required /></div>
-              <div className="field"><label htmlFor="pricing-labor">Chi phí lao động (VNĐ)</label><input id="pricing-labor" type="number" min="0" max="100000000" value={pricingLabor} onChange={(event) => setPricingLabor(event.target.value)} required /></div>
+              <div className="field"><label htmlFor="pricing-material">Chi phí vật liệu</label><CurrencyInput id="pricing-material" value={pricingMaterial} onChange={setPricingMaterial} maxAmount={100000000} required /></div>
+              <div className="field"><label htmlFor="pricing-labor">Chi phí lao động</label><CurrencyInput id="pricing-labor" value={pricingLabor} onChange={setPricingLabor} maxAmount={100000000} required /></div>
               <button className="button button-primary button-full" type="submit" disabled={pending}>{pending ? 'Đang phân tích…' : 'Phân tích và gợi ý giá'}</button>
             </form>
             <div className="pricing-results" aria-live="polite">
